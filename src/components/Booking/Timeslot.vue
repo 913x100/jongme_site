@@ -91,11 +91,12 @@ export default {};
 </script>
 <style>
 .disable_button {
-  border: 0.53vw solid #c4c4c4;
+  border: none;
   color: #c4c4c4;
+  background-color: #f0f0f0;
 }
 .timeslot_header_border {
-  border: 0.53vw solid #c4c4c4;
+  border: 2px solid #c4c4c4;
   color: #c4c4c4;
 }
 .timeslot_header {
@@ -109,15 +110,7 @@ export default {};
 .selected {
   color: #ffc633;
 }
-.webview_title {
-  font-size: 4.8vw;
-  color: #6c6c6c;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-align: center;
-  margin-top: 4.43vh;
-  margin-bottom: 3.82vh;
-}
+
 .timeslots {
   list-style-type: none;
 }
@@ -133,7 +126,7 @@ export default {};
 
 .timeslots input[type="radio"]:checked + label,
 .timeslots label:hover {
-  border: 0.53vw solid #ffc633;
+  border: 2px solid #ffc633;
   color: #ffc633;
 }
 
@@ -147,34 +140,8 @@ export default {};
   padding-right: 5.6vw;
   font-weight: 500;
   font-size: 4.53vw;
-  border: 0.53vw solid #c4c4c4;
+  border: 2px solid #c4c4c4;
   background: none;
   color: #c4c4c4;
-}
-ul {
-  margin-left: 0;
-  padding: 0;
-}
-.booking_button_margin {
-  margin-top: 3.82vh;
-  margin-bottom: 4.43vh;
-  margin-left: auto;
-  margin-right: auto;
-}
-.yellow_button {
-  background: #ffc633;
-}
-.main_button {
-  display: block;
-  text-decoration: none;
-  border: none;
-  border-radius: 10vh;
-  padding-top: 1.35vh;
-  padding-bottom: 1.35vh;
-  padding-left: 8.27vw;
-  padding-right: 8.27vw;
-  font-size: 3.2vw;
-  font-weight: 500;
-  color: white;
 }
 </style>
