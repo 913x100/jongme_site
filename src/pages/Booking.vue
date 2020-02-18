@@ -46,12 +46,11 @@ export default {
 
   border-radius: 15vw;
   width: 90%;
+
   margin-left: auto;
   margin-right: auto;
 }
 .choice_button li {
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 0.99vh;
 }
 .choice_button input[type="radio"]:checked + label,
