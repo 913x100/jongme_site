@@ -29,7 +29,9 @@ import {
   Form,
   Select,
   Popconfirm,
-  Modal
+  Modal,
+  TimePicker,
+  Switch
 } from "ant-design-vue";
 
 const { Content, Header, Footer, Sider } = Layout;
@@ -92,6 +94,8 @@ Vue.component(Select.name, Select);
 Vue.component(Select.Option.name, Select.Option);
 Vue.component(Popconfirm.name, Popconfirm);
 Vue.component(Modal.name, Modal);
+Vue.component(TimePicker.name, TimePicker);
+Vue.component(Switch.name, Switch);
 
 Vue.component(Content.name, Content);
 Vue.component(Header.name, Header);

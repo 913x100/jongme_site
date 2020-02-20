@@ -2,7 +2,9 @@
   <div class="DashbaordLayout">
     <a-layout class="ant-layout">
       <a-layout>
-        <a-layout-header background-color="primary">Jongme</a-layout-header>
+        <a-layout-header style="padding: 0">
+          <GlobalHeader></GlobalHeader>
+        </a-layout-header>
         <a-layout-content style="margin: 24px 24px 0; height: 100%">
           <router-view></router-view>
         </a-layout-content>
@@ -12,8 +14,12 @@
 </template>
 
 <script>
+import GlobalHeader from "@/components/GlobalHeader";
+
 export default {
   name: "DashboardLayout",
-  components: {}
+  components: {
+    GlobalHeader
+  }
 };
 </script>

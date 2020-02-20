@@ -19,6 +19,14 @@ export default new Router({
         {
           path: "",
           component: () => import("@/pages/Index")
+        },
+        {
+          path: "/setting",
+          component: () => import("@/pages/Dashboard/PageSetting")
+        },
+        {
+          path: "/setting/2",
+          component: () => import("@/pages/Dashboard/Setting-2")
         }
       ]
     },
@@ -26,6 +34,7 @@ export default new Router({
       path: "/login",
       component: () => import("@/pages/Login")
     },
+
     {
       path: "/auth",
       beforeEnter: to => {

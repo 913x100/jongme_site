@@ -10,5 +10,8 @@ module.exports = {
         javascriptEnabled: true
       }
     }
+  },
+  devServer: {
+    disableHostCheck: true
   }
 };
