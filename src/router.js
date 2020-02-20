@@ -40,6 +40,10 @@ export default new Router({
     {
       path: "/booking",
       component: () => import("@/pages/Booking")
+    },
+    {
+      path: "/selectpage",
+      component: () => import("@/pages/PageSelection")
     }
   ]
 });

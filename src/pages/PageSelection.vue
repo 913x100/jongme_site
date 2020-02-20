@@ -1,32 +1,45 @@
 <template>
   <div>
-    <Timeslot></Timeslot>
-    <SelectService></SelectService>
-    <SelectUnit></SelectUnit>
-    <PhoneNumber></PhoneNumber>
-    <Name></Name>
+    <div class="title_margin">
+      <div class="title">SELECT PAGE</div>
+      <div class="subtitle">select page for managing with Jongme</div>
+    </div>
+    <ul class="choice_button">
+      <li>
+        <input type="radio" id="s1" name="service" />
+        <label for="s1">Fortune teller</label>
+      </li>
+      <li>
+        <input type="radio" id="s2" name="service" />
+        <label for="s2">Kingston Sport Club</label>
+      </li>
+    </ul>
+    <button class="main_button yellow_button booking_button_margin">Next</button>
   </div>
 </template>
-
 <script>
-import Timeslot from "@/components/Booking/Timeslot";
-import SelectService from "@/components/Booking/SelectService";
-import SelectUnit from "@/components/Booking/SelectUnit";
-import PhoneNumber from "@/components/Booking/PhoneNumber";
-
-import Name from "@/components/Booking/Name";
-export default {
-  components: {
-    Timeslot,
-    SelectService,
-    SelectUnit,
-    PhoneNumber,
-    Name
-  }
-};
+export default {};
 </script>
-
 <style>
+.title {
+  color: black;
+  font-size: 5.6vw;
+  font-weight: 700;
+}
+.subtitle {
+  color: #7e7e7e;
+  font-size: 3.73vw;
+  font-weight: 500;
+  margin-top: 0.97vh;
+}
+.title_margin {
+  margin-top: 3.82vh;
+  margin-bottom: 3.82vh;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .choice_button li {
   width: 100%;
   padding-left: 2.46vh;
@@ -54,6 +67,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
+  /* height: 80px; */
 }
 .choice_button li {
   margin-bottom: 0.99vh;
@@ -99,32 +113,5 @@ li {
   font-size: 3.2vw;
   font-weight: 500;
   color: white;
-}
-.webview_title {
-  font-size: 4.8vw;
-  color: #6c6c6c;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-align: center;
-  margin-top: 4.43vh;
-  margin-bottom: 3.82vh;
-}
-input[type="text"] {
-  width: 80%;
-  padding: 12px 20px;
-  display: inline-block;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-input[type="text"]:hover {
-  border: 2px solid #ffc633;
-}
-input[type="text"]:focus {
-  outline: none;
-  border: 2px solid #ffc633;
 }
 </style>
