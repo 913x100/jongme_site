@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-bind:class="{ test: selected }">
+    <!-- NavBar -->
     <div class="title_margin">
       <div class="title">SELECT PAGE</div>
       <div class="subtitle">select page for managing with Jongme</div>
@@ -14,11 +15,30 @@
         <label for="s2">Kingston Sport Club</label>
       </li>
     </ul>
-    <button class="main_button yellow_button booking_button_margin">Next</button>
+    <MainButton text="Next" color="yellow"></MainButton>
+
+    <Alert
+      title="Warning"
+      subtitle="Please select at least one page for managing with Jongme first"
+      v-if="selected==false"
+    ></Alert>
   </div>
 </template>
 <script>
-export default {};
+import MainButton from "@/components/Button";
+import Alert from "@/components/Alert";
+export default {
+  data: function() {
+    return {
+      // selected: false
+      selected: true
+    };
+  },
+  components: {
+    Alert,
+    MainButton
+  }
+};
 </script>
 <style>
 .title {

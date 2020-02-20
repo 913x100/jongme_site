@@ -2,11 +2,16 @@
   <div>
     <div class="webview_title">Enter phone number</div>
     <input type="text" id="pnumber" name="phonenumber" placeholder="Enter phone number" />
-    <button class="main_button yellow_button booking_button_margin">Next</button>
+    <MainButton text="Next" color="yellow"></MainButton>
   </div>
 </template>
 <script>
-export default {};
+import MainButton from "@/components/Button";
+export default {
+  components: {
+    MainButton
+  }
+};
 </script>
 <style>
 </style>

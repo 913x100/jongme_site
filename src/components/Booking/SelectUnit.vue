@@ -11,14 +11,16 @@
         <label for="s2">2</label>
       </li>
     </ul>
-    <button class="main_button yellow_button booking_button_margin">
-      Next
-    </button>
+    <MainButton text="Next" color="yellow"></MainButton>
   </div>
 </template>
 <script>
+import MainButton from "@/components/Button";
 export default {
-  unit: "Court"
+  unit: "Court",
+  components: {
+    MainButton
+  }
 };
 </script>
 <style></style>

@@ -6,18 +6,13 @@
       justify="space-around"
       align="middle"
       style="text-align: center"
-      class="timeslot_header "
+      class="timeslot_header"
     >
       <a-col :span="6" class="selected">30 Sep</a-col>
       <a-col :span="6">1 Oct</a-col>
       <a-col :span="6">2 Oct</a-col>
     </a-row>
-    <a-row
-      type="flex"
-      justify="space-around"
-      align="middle"
-      style="text-align: center"
-    >
+    <a-row type="flex" justify="space-around" align="middle" style="text-align: center">
       <!-- timeslot -->
       <a-col :span="6">
         <ul class="timeslots">
@@ -81,13 +76,16 @@
       </a-col>
     </a-row>
     <!-- button -->
-    <button class="main_button yellow_button booking_button_margin">
-      Next
-    </button>
+    <MainButton text="Next" color="yellow"></MainButton>
   </div>
 </template>
 <script>
-export default {};
+import MainButton from "@/components/Button";
+export default {
+  components: {
+    MainButton
+  }
+};
 </script>
 <style>
 .disable_button {
