@@ -8,13 +8,13 @@
       style="text-align: center"
       class="timeslot_header"
     >
-      <a-col :span="6" class="selected">30 Sep</a-col>
-      <a-col :span="6">1 Oct</a-col>
-      <a-col :span="6">2 Oct</a-col>
+      <a-col :span="8" class="selected">30 Sep</a-col>
+      <a-col :span="8">1 Oct</a-col>
+      <a-col :span="8">2 Oct</a-col>
     </a-row>
     <a-row type="flex" justify="space-around" align="middle" style="text-align: center">
       <!-- timeslot -->
-      <a-col :span="6">
+      <a-col :span="8">
         <ul class="timeslots">
           <li>
             <input type="radio" id="a1" name="time" />
@@ -34,7 +34,7 @@
           </li>
         </ul>
       </a-col>
-      <a-col :span="6">
+      <a-col :span="8">
         <ul class="timeslots">
           <li>
             <input type="radio" id="b1" name="time" />
@@ -54,7 +54,7 @@
           </li>
         </ul>
       </a-col>
-      <a-col :span="6">
+      <a-col :span="8">
         <ul class="timeslots">
           <li>
             <input type="radio" id="c1" name="time" />

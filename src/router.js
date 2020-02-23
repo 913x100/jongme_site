@@ -44,6 +44,10 @@ export default new Router({
     {
       path: "/selectpage",
       component: () => import("@/pages/PageSelection")
+    },
+    {
+      path: "/dashboard",
+      component: () => import("@/pages/Dashboard")
     }
   ]
 });
