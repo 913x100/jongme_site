@@ -16,7 +16,7 @@
 
     <div v-if="badge_clicked" class="outter">
       <InfoCard status="Approve" class="hid-box"></InfoCard>
-      <div class="popup_bg"></div>
+      <div v-on:click="badge_clicked=false" class="alert_bg"></div>
     </div>
   </div>
 </template>
@@ -55,6 +55,16 @@ export default {
   transition: all 0.3s ease-out;
   height: 100%; */
 }
+.alert_bg {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
 .popup_bg {
   background: (rgba(0, 0, 0, 0.9));
   position: absolute;
