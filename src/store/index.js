@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import Auth from "./User/auth";
+import auth from "./user/auth";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    Auth
+    auth
   }
 });
 
