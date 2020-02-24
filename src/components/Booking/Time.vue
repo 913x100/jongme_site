@@ -1,117 +1,42 @@
 <template>
   <div>
-    <div class="container">
-      <div class="flex-item">
-        <a-checkbox-group :defaultValue="['Apple']">
+    <a-spin :spinning="loading">
+      <div class="container">
+        <div class="flex-item">
           <a-row>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
+            <a-col class="checkbox" v-for="slot in slots" :key="slot">
+              <input type="checkbox" :id="'checkbox_'+slot" />
+              <label :for="'checkbox_'+slot" class="text-caption">{{slot}}</label>
             </a-col>
           </a-row>
-        </a-checkbox-group>
+        </div>
+        <div class="flex-item"></div>
+        <div class="flex-item"></div>
       </div>
-      <div class="flex-item">
-        <a-checkbox-group :defaultValue="['Apple']">
-          <a-row>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-          </a-row>
-        </a-checkbox-group>
-      </div>
-      <div class="flex-item">
-        <a-checkbox-group :defaultValue="['Apple']">
-          <a-row>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-            <a-col>
-              <a-checkbox>asdas</a-checkbox>
-            </a-col>
-          </a-row>
-        </a-checkbox-group>
-      </div>
-    </div>
-    <div
-      :style="{
-          position: 'absolute',
-          left: 0,
-          bottom: 0,
-          width: '100%',
-          borderTop: '1px solid #e9e9e9',
-          padding: '10px 16px',
-          background: '#fff',
-          textAlign: 'right',
-        }"
-    >
-      <a-button :style="{marginRight: '8px'}" @click="onClose">Cancel</a-button>
-      <a-button @click="onClose" type="primary">Submit</a-button>
-    </div>
+    </a-spin>
   </div>
 </template>
 <script>
-const optionsWithDisabled = [
-  { label: "Apple", value: "Apple", disabled: true },
-  { label: "Pear", value: "Pear" },
-  { label: "Orange", value: "Orange", disabled: false }
-];
+import api from "@/api";
 
 export default {
   data() {
     return {
-      optionsWithDisabled,
-      form: this.$form.createForm(this),
-      visible: false
+      loading: false,
+      visible: false,
+      slots: []
     };
   },
+  created() {
+    this.getServiceSlots();
+  },
   methods: {
-    showDrawer() {
-      this.visible = true;
-    },
-    onClose() {
-      this.visible = false;
+    getServiceSlots() {
+      this.loading = true;
+      api.service.serviceSlots("5e52540376348adc430f15fc").then(res => {
+        this.slots = res.data;
+        this.loading = false;
+      });
     }
   }
 };
@@ -128,5 +53,34 @@ export default {
 .flex-item {
   flex-grow: 2;
   text-align: center;
+}
+
+.checkbox {
+  margin: 1em;
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    // left: -9999px;
+
+    &:checked + label {
+      border-color: @primary-color;
+      color: @primary-color;
+    }
+    &:disabled + label {
+      background-color: #f0f0f0;
+      border-color: #f0f0f0;
+      color: grey;
+    }
+  }
+  label {
+    position: relative;
+    cursor: pointer;
+    color: grey;
+    border: 2px solid #f0f0f0;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0.5em 1em 0.5em 1em;
+    display: inline-block;
+  }
 }
 </style>

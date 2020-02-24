@@ -3,6 +3,9 @@ import axios from "axios";
 import store from "@/store";
 
 import auth from "./auth";
+import booking from "./booking";
+import service from "./service";
+import page from "./page";
 
 axios.interceptors.request.use(config => {
   const token = store.getters["auth/token"];
@@ -13,4 +16,4 @@ axios.interceptors.request.use(config => {
   return config;
 });
 
-export default { auth };
+export default { auth, booking, service, page };

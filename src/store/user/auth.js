@@ -1,8 +1,7 @@
 import api from "@/api";
 
 const state = {
-  token: localStorage.getItem("userToken") || undefined,
-  pages: []
+  token: localStorage.getItem("userToken") || undefined
 };
 
 const actions = {

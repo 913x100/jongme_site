@@ -1,10 +1,8 @@
 <template>
   <div class="header">
-    <a-icon
-      class="trigger"
-      :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-      @click="toggle"
-    />
+    <div>Jongme</div>
+    <div>Jongme</div>
+    <div class="right">Jongme</div>
   </div>
 </template>
 
