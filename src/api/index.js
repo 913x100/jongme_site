@@ -3,9 +3,12 @@ import axios from "axios";
 import store from "@/store";
 
 import auth from "./auth";
+import booking from "./booking";
+import service from "./service";
+import page from "./page";
 
 axios.interceptors.request.use(config => {
-  const token = store.getters.token;
+  const token = store.getters["auth/token"];
 
   config.headers["Access-Control-Allow-Origin"] = "*";
   config.headers["Authorization"] = `Bearer ${token}`;
@@ -13,4 +16,4 @@ axios.interceptors.request.use(config => {
   return config;
 });
 
-export default { auth };
+export default { auth, booking, service, page };

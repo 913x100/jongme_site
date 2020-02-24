@@ -19,6 +19,14 @@ export default new Router({
         {
           path: "",
           component: () => import("@/pages/Index")
+        },
+        {
+          path: "/setting/page",
+          component: () => import("@/pages/Setting/PageSetting")
+        },
+        {
+          path: "/setting/service",
+          component: () => import("@/pages/Setting/ServiceSetting")
         }
       ]
     },
@@ -27,10 +35,18 @@ export default new Router({
       component: () => import("@/pages/Login")
     },
     {
+      path: "/select",
+      component: () => import("@/pages/SelectPage")
+    },
+    {
+      path: "/booking/time",
+      component: () => import("@/pages/Booking/Time")
+    },
+    {
       path: "/auth",
       beforeEnter: to => {
         if (to.query.code) {
-          store.dispatch("login", to.query.code).then(res => {
+          store.dispatch("auth/login", to.query.code).then(res => {
             opener.postMessage(res, config.appUrl);
             window.close();
           });

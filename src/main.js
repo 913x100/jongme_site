@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
+import store from "./store";
 
 import {
   Button,
@@ -29,7 +30,13 @@ import {
   Form,
   Select,
   Popconfirm,
-  Modal
+  Modal,
+  TimePicker,
+  Switch,
+  Checkbox,
+  Upload,
+  InputNumber,
+  Drawer
 } from "ant-design-vue";
 
 const { Content, Header, Footer, Sider } = Layout;
@@ -92,6 +99,13 @@ Vue.component(Select.name, Select);
 Vue.component(Select.Option.name, Select.Option);
 Vue.component(Popconfirm.name, Popconfirm);
 Vue.component(Modal.name, Modal);
+Vue.component(TimePicker.name, TimePicker);
+Vue.component(Switch.name, Switch);
+Vue.component(Checkbox.name, Checkbox);
+Vue.component(Checkbox.Group.name, Checkbox.Group);
+Vue.component(Upload.name, Upload);
+Vue.component(InputNumber.name, InputNumber);
+Vue.component(Drawer.name, Drawer);
 
 Vue.component(Content.name, Content);
 Vue.component(Header.name, Header);
@@ -100,5 +114,6 @@ Vue.component(Sider.name, Sider);
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");

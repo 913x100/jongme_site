@@ -2,10 +2,10 @@ import axios from "axios";
 import { config } from "@/config.js";
 
 export default {
-  fb(code) {
+  serviceSlots(id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${config.apiUrl}/auth/fb?code=${code}`)
+        .get(`${config.apiUrl}/service/slots/${id}`)
         .then(res => {
           resolve(res);
         })
@@ -15,27 +15,11 @@ export default {
         });
     });
   },
-
-  pages() {
+  getServiceByPage(page_id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${config.apiUrl}/auth/pages`)
+        .get(`${config.apiUrl}/service/?page_id=${page_id}`)
         .then(res => {
-          resolve(res);
-        })
-        .catch(err => {
-          console.log(err);
-          reject(err);
-        });
-    });
-  },
-
-  selectPage(id) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`${config.apiUrl}/auth/page/${id}`)
-        .then(res => {
-          console.log(res);
           resolve(res);
         })
         .catch(err => {
