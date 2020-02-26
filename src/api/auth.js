@@ -35,7 +35,7 @@ export default {
       axios
         .get(`${config.apiUrl}/auth/page/${id}`)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           resolve(res);
         })
         .catch(err => {

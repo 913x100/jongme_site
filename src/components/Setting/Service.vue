@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- {{service}} -->
     <a-form>
       <a-row type="flex" align="middle">
         <a-col :span="20">
@@ -18,11 +19,11 @@
       <a-row>
         <a-col>
           <a-form-item>
-            <a-input placeholder="Enter service type" />
+            <a-input placeholder="Enter service type" v-model="service.name" />
           </a-form-item>
         </a-col>
       </a-row>
-      <a-row>
+      <!-- <a-row>
         <a-col>
           <div class="title">Service type picture</div>
         </a-col>
@@ -46,13 +47,13 @@
             <div class="ant-upload-text">Upload</div>
           </div>
         </a-upload>
-      </a-row>
+      </a-row>-->
       <a-row type="flex">
         <a-col :span="16">
           <div class="title">Enter service unit</div>
         </a-col>
         <a-col :span="7">
-          <a-input placeholder="Unit" width="100%"></a-input>
+          <a-input placeholder="Unit" width="100%" v-model="service.unit_type"></a-input>
         </a-col>
       </a-row>
       <a-row type="flex">
@@ -60,7 +61,13 @@
           <div class="title">How many unit do you have?</div>
         </a-col>
         <a-col :span="7">
-          <a-input-number :min="1" :max="10" :defaultValue="1" @change="onChange" width="100%" />
+          <a-input-number
+            :min="1"
+            :max="10"
+            :defaultValue="1"
+            width="100%"
+            v-model="service.unit_quantity"
+          />
         </a-col>
       </a-row>
       <a-row
@@ -74,26 +81,38 @@
         </a-col>
         <a-col>
           <div class="radio">
-            <input type="radio" id="radio_1" name="time" />
-            <label for="radio_1" class="text-caption">15 min</label>
+            <input
+              type="radio"
+              :id="'15min'+service._id"
+              name="time"
+              value="15"
+              @change.stop="choose"
+            />
+            <label :for="'15min'+service._id" class="text-caption">15 min</label>
           </div>
         </a-col>
         <a-col>
           <div class="radio">
-            <input type="radio" id="radio_2" name="time" />
-            <label for="radio_2" class="text-caption">30 min</label>
+            <input type="radio" :id="'30min'+service._id" name="time" value="30" @change="choose" />
+            <label :for="'30min'+service._id" class="text-caption">30 min</label>
           </div>
         </a-col>
         <a-col>
           <div class="radio">
-            <input type="radio" id="radio_3" name="time" />
-            <label for="radio_3" class="text-caption">1 hr</label>
+            <input type="radio" :id="'60min'+service._id" name="time" value="60" @change="choose" />
+            <label :for="'60min'+service._id" class="text-caption">60 min</label>
           </div>
         </a-col>
         <a-col>
           <div class="radio">
-            <input type="radio" id="radio_4" name="time" />
-            <label for="radio_4" class="text-caption">more than 1 hr</label>
+            <input
+              type="radio"
+              :id="'othermin'+service._id"
+              name="time"
+              value="other"
+              @change="choose"
+            />
+            <label :for="'othermin'+service._id" class="text-caption">more than 60 min</label>
           </div>
         </a-col>
       </a-row>
@@ -102,7 +121,14 @@
           <div class="title">How many hour?</div>
         </a-col>
         <a-col :span="7">
-          <a-input-number :min="1" :max="10" :defaultValue="1" @change="onChange" width="100%" />
+          <a-input-number
+            :min="1"
+            :max="1000"
+            :defaultValue="1"
+            width="100%"
+            :disabled="isOtherMin"
+            v-model="service.minimum_time_length"
+          />
         </a-col>
       </a-row>
       <!-- <a-row type="flex" align="middle">
@@ -156,9 +182,8 @@ function getBase64(img, callback) {
   reader.readAsDataURL(img);
 }
 
-const plainOptions = ["Apple", "Pear", "Orange"];
-
 export default {
+  props: ["service"],
   created() {
     // this.getService();
   },
@@ -166,7 +191,8 @@ export default {
     return {
       loading: false,
       imageUrl: "",
-      plainOptions
+      time_length: 15,
+      isOtherMin: true
     };
   },
   methods: {
@@ -194,6 +220,15 @@ export default {
         this.$message.error("Image must smaller than 2MB!");
       }
       return isJPG && isLt2M;
+    },
+    choose(e) {
+      console.log(e.target.value);
+      if (e.target.value == "other") {
+        this.isOtherMin = false;
+      } else {
+        this.isOtherMin = true;
+        this.service.minimum_time_length = parseInt(e.target.value);
+      }
     },
     getService() {
       api.service

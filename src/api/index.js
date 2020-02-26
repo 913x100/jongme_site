@@ -8,11 +8,11 @@ import service from "./service";
 import page from "./page";
 
 axios.interceptors.request.use(config => {
-  const token = store.getters["auth/token"];
+  const token = store.getters["page/token"] || store.getters["auth/token"];
 
   config.headers["Access-Control-Allow-Origin"] = "*";
   config.headers["Authorization"] = `Bearer ${token}`;
-
+  config.timeout = 5000;
   return config;
 });
 

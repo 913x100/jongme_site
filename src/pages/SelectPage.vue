@@ -5,15 +5,15 @@
         v-for="page in pages"
         :key="page.id"
         :style="{ marginBottom: '10px' }"
-        v-on:click="setPage(page.id)"
+        v-on:click="setPage(page)"
         block
-      >
-        {{ page.name }}
-      </a-button>
+      >{{ page.name }}</a-button>
     </a-card>
   </div>
 </template>
 <script>
+// import store from "@/store";
+
 export default {
   data() {
     return {
@@ -29,8 +29,10 @@ export default {
         this.pages = res;
       });
     },
-    setPage(id) {
-      this.$store.dispatch("auth/selectPage", id).then(res => {
+    setPage(page) {
+      this.$store.dispatch("auth/selectPage", page).then(res => {
+        // const page = store.getters["page/page"];
+        // console.log(page);
         console.log(res);
       });
     }

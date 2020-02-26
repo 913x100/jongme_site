@@ -36,7 +36,8 @@ import {
   Checkbox,
   Upload,
   InputNumber,
-  Drawer
+  Drawer,
+  Steps
 } from "ant-design-vue";
 
 const { Content, Header, Footer, Sider } = Layout;
@@ -106,6 +107,8 @@ Vue.component(Checkbox.Group.name, Checkbox.Group);
 Vue.component(Upload.name, Upload);
 Vue.component(InputNumber.name, InputNumber);
 Vue.component(Drawer.name, Drawer);
+Vue.component(Steps.name, Steps);
+Vue.component(Steps.Step.name, Steps.Step);
 
 Vue.component(Content.name, Content);
 Vue.component(Header.name, Header);

@@ -5,12 +5,10 @@
         <a-layout-header style="padding: 0; margin 0">
           <GlobalHeader></GlobalHeader>
         </a-layout-header>
-        <a-layout-content style="margin: 24px 24px 0; height: 100%">
-          <div class="container">
-            <a-card style="width: 500px" :bordered="false">
-              <router-view></router-view>
-            </a-card>
-          </div>
+        <a-layout-content style="margin: 24px 10px 0; height: 100%">
+          <!-- <div class="container"> -->
+          <router-view></router-view>
+          <!-- </div> -->
         </a-layout-content>
       </a-layout>
     </a-layout>

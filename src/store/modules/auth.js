@@ -31,14 +31,14 @@ const actions = {
         });
     });
   },
-  selectPage({ commit }, id) {
+  selectPage({ commit }, page) {
     return new Promise((resolve, reject) => {
-      console.log(id);
       api.auth
-        .selectPage(id)
+        .selectPage(page.id)
         .then(res => {
-          commit();
           const token = res.data.token;
+          commit("page/select_success", token, { root: true });
+          commit("page/setPage", page, { root: true });
           resolve(token);
         })
         .catch(err => {

@@ -27,6 +27,10 @@ export default new Router({
         {
           path: "/setting/service",
           component: () => import("@/pages/Setting/ServiceSetting")
+        },
+        {
+          path: "/dashboard",
+          component: () => import("@/pages/Dashboard/Dashboard")
         }
       ]
     },
@@ -41,6 +45,10 @@ export default new Router({
     {
       path: "/booking/time",
       component: () => import("@/pages/Booking/Time")
+    },
+    {
+      path: "/booking/:page_id/:service_id/:user_id",
+      component: () => import("@/pages/Booking/Facebook")
     },
     {
       path: "/auth",
