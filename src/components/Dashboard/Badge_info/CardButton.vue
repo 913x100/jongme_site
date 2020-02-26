@@ -2,7 +2,7 @@
   <div>
     <!-- hello -->
     <button
-      class="main_button card_button_margin"
+      class="m_button card_button_margin"
       v-bind:class="[{yellow_button:color=='yellow'},{purple_button:color=='purple'},{green_button:color=='green'},{red_button:color=='red'}]"
     >{{text}}</button>
   </div>
@@ -38,7 +38,7 @@ export default {
 .red_button {
   background: #f5575d;
 }
-.main_button {
+.m_button {
   display: block;
   text-decoration: none;
   border: none;

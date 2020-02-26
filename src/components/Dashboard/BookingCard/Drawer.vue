@@ -61,12 +61,16 @@
 </template>
 
 <script>
+import CardButton from "@/components/Dashboard/Badge_info/CardButton.vue";
+
 export default {
   props: ["visible"],
   data() {
     return {};
   },
-  components: {}
+  components: {
+    CardButton
+  }
 };
 </script>
 
