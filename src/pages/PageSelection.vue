@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="{ test: selected }">
-    <!-- NavBar -->
+    <NavBar></NavBar>
     <div class="title_margin">
       <div class="title">SELECT PAGE</div>
       <div class="subtitle">select page for managing with Jongme</div>
@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+import NavBar from "@/components/NavBar";
 import MainButton from "@/components/Button";
 import Alert from "@/components/Alert";
 export default {
@@ -36,7 +37,8 @@ export default {
   },
   components: {
     Alert,
-    MainButton
+    MainButton,
+    NavBar
   }
 };
 </script>

@@ -13,9 +13,7 @@
       <span class="orange_content">‘จองมี’</span>
     </div>
     <!-- facebook button -->
-    <button href="#" @click.prevent="fbConnect" class="button_fb">
-      เข้าใช้งานผ่าน FACEBOOK
-    </button>
+    <button href="#" @click.prevent="fbConnect" class="button_fb">เข้าใช้งานผ่าน FACEBOOK</button>
     <!-- first content  -->
     <div class="grid-container">
       <div class="grid-item">
@@ -52,11 +50,7 @@
       </div>
 
       <div class="grid-item">
-        <img
-          class="props prop2"
-          alt="right"
-          src="../assets/right_landing.png"
-        />
+        <img class="props prop2" alt="right" src="../assets/right_landing.png" />
       </div>
     </div>
   </div>
@@ -206,7 +200,9 @@ window.addEventListener(
 
 .mini_icon {
   font-weight: 900;
-  font-size: 5.397vw;
+  /* font-size: 5.397vw; */
+  font-size: 2.5vh;
+
   background: -webkit-linear-gradient(#ffd666, #fca226);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -221,7 +217,6 @@ window.addEventListener(
 
   padding-top: 1.478vh;
   padding-bottom: 1.478vh;
-  padding-left: 3.73vw;
-  padding-right: 3.73vw;
+  padding-left: 1.6vh;
 }
 </style>

@@ -213,6 +213,7 @@ export default {
 <style lang="less" scope>
 @import "~ant-design-vue/lib/style/themes/default.less";
 
+// .margin_t00
 .radio {
   margin-top: 10px;
   margin-bottom: 10px;

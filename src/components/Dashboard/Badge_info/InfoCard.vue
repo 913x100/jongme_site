@@ -44,7 +44,7 @@
         </a-col>
         <a-col :span="2"></a-col>
         <a-col :span="11">
-          <CardButton text="Cancle booking" color="red"></CardButton>
+          <CardButton text="Cancel booking" color="red"></CardButton>
         </a-col>
       </a-row>
 
@@ -54,7 +54,7 @@
         </a-col>
         <a-col :span="2"></a-col>
         <a-col :span="11">
-          <CardButton text="Cancle booking" color="red"></CardButton>
+          <CardButton text="Cancel booking" color="red"></CardButton>
         </a-col>
       </a-row>
     </div>

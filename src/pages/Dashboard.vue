@@ -1,6 +1,6 @@
 <template>
   <div class="dash">
-    <div>NavBar</div>
+    <NavBar></NavBar>
     <div class="page_title">DASHBOARD</div>
     <div style="margin-bottom: 1.85vh">
       <StatusToggle></StatusToggle>
@@ -10,13 +10,13 @@
     </button>
     <MonthToggle></MonthToggle>
     <div id="date">Monday, 4 July 2019</div>
-    <div v-on:click="badge_clicked=true">
+    <div v-on:click="badge_clicked = true">
       <Badge></Badge>
     </div>
 
     <div v-if="badge_clicked" class="outter">
       <InfoCard status="Approve" class="hid-box"></InfoCard>
-      <div v-on:click="badge_clicked=false" class="alert_bg"></div>
+      <div v-on:click="badge_clicked = false" class="alert_bg"></div>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ import InfoCard from "@/components/Dashboard/Badge_info/InfoCard";
 import Badge from "@/components/Dashboard/Badge";
 import MonthToggle from "@/components/Dashboard/MonthToggle";
 import StatusToggle from "@/components/Dashboard/StatusToggle";
+import NavBar from "@/components/NavBar";
 export default {
   data() {
     return {
@@ -38,7 +39,8 @@ export default {
     Badge,
     MonthToggle,
     StatusToggle,
-    InfoCard
+    InfoCard,
+    NavBar
   }
 };
 </script>

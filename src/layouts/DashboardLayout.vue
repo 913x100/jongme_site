@@ -7,7 +7,7 @@
         </a-layout-header>
         <a-layout-content style="margin: 24px 24px 0; height: 100%">
           <div class="container">
-            <a-card style="width: 500px" :bordered="false">
+            <a-card style="width: 375px" :bordered="false">
               <router-view></router-view>
             </a-card>
           </div>
