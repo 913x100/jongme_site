@@ -3,7 +3,8 @@
     <a-layout class="ant-layout">
       <a-layout>
         <a-layout-header style="padding: 0; margin 0">
-          <GlobalHeader></GlobalHeader>
+          <!-- <GlobalHeader></GlobalHeader> -->
+          <nav-bar></nav-bar>
         </a-layout-header>
         <a-layout-content style="margin: 24px 24px 0; height: 100%">
           <div class="container">
@@ -18,12 +19,14 @@
 </template>
 
 <script>
-import GlobalHeader from "@/components/GlobalHeader";
+import NavBar from "@/components/NavBar";
+// import GlobalHeader from "@/components/GlobalHeader";
 
 export default {
   name: "DashboardLayout",
   components: {
-    GlobalHeader
+    // GlobalHeader,
+    NavBar
   }
 };
 </script>
