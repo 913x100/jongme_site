@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="page_title">SERVICES</div>
     <div class="container">
       <a-card style="width: 375px" :bordered="false">
         <div v-for="service in services" :key="service._id">

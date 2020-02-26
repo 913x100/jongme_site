@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="page_title">AVAILABILITY</div>
     <div class="box">
       <a-form>
         <a-row class="function-margin">
