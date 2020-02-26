@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="textAlign:center;fontSize:30px;marginBottom:10px;">DASHBOARD</div>
+    <div class="page_title">DASHBOARD</div>
     <div class="container">
       <a-card style="width: 375px;padding:0px;" :bordered="false" class="grey-card">
         <a-tabs defaultActiveKey="1" size="xx-small">
@@ -18,7 +18,7 @@
               <a-col :span="8" style="textAlign: left;fontSize: 20px">
                 <a-icon type="left" />
               </a-col>
-              <a-col :span="8" style="textAlign: center;fontSize: 20px">Date</a-col>
+              <a-col :span="8" style="textAlign: center;fontSize: 20px" class="month">July 2019</a-col>
               <a-col :span="8" style="textAlign: right;fontSize: 20px">
                 <a-icon type="right" />
               </a-col>
@@ -46,7 +46,7 @@
               <a-badge count="5" />
             </span>
             <a-row>
-              <a-button size="large" style="width: 100%">
+              <a-button size="large" class="add">
                 <a-icon type="plus" />
               </a-button>
             </a-row>
@@ -91,14 +91,41 @@ export default {
 
 <style lang="less">
 @import "~ant-design-vue/lib/style/themes/default.less";
+.month {
+  // color: #a7a7a7;
+  // margin-bottom: 1.23vh;
+  font-weight: 500;
+  font-size: 20px;
+}
 
+.a-icon {
+  // font-size: 47px;
+  // height: 47px;
+}
 .grey-card {
-  background-color: #f0f2f5;
+  background-color: #fafafa;
   .ant-card-body {
     padding: 0;
   }
 }
-
+.add_text {
+  font-size: 12.53vw;
+  line-height: 7.53vw;
+  color: #b2b2b2;
+}
+.ant-btn {
+  border: none;
+  height: 57px;
+  // padding-top: 18px;
+  // padding-bottom: 18px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.07);
+  border-radius: 4px;
+}
+.add {
+  width: 100%;
+  background-color: white;
+  border: none;
+}
 .container {
   display: -webkit-box;
   display: -moz-box;
@@ -145,6 +172,34 @@ export default {
 }
 .ant-row {
   margin-bottom: 10px;
+}
+#badge_date {
+  /* margin-top: 2.03vh; */
+  /* font-size: 5.07vw; */
+  font-weight: 500;
+  color: #6c6c6c;
+  text-align: right;
+}
+.time {
+  /* font-size: 3.47vw; */
+  font-weight: 500;
+  color: #6c6c6c;
+  text-align: right;
+  /* bottom: 0; */
+}
+.username {
+  /* margin-top: 0.53vh; */
+  /* font-size: 3.2vw; */
+  font-weight: 500;
+  color: #a7a7a7;
+}
+.service_name {
+  /* font-size: 3.2vw; */
+  font-weight: 500;
+  color: #000000;
+}
+.detail_margin {
+  margin: 12px;
 }
 
 .hid-box {

@@ -1,26 +1,31 @@
 <template>
-  <div class="container">
-    <a-card style="width: 375px" :bordered="false">
+  <div>
+    <div class="box">
       <a-form>
-        <a-row>
+        <a-row class="function-margin">
           <a-col :span="20">
-            <span>เวลาทำการ</span>
+            <span class="mainfunction">Set operating hour</span>
           </a-col>
           <a-col :span="3">
             <a-switch
               size="small"
               :style="{ marginRight: '0' }"
-              checkedChildren="เปิด"
-              unCheckedChildren="ปิด"
+              checkedChildren="ON"
+              unCheckedChildren="OFF"
               defaultChecked
             />
           </a-col>
         </a-row>
-        <a-row>
-          <a-col :span="12">
-            <a-form-item label="เปิด" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
+        <a-row class="function-margin">
+          <a-col :span="11">
+            <a-form-item
+              class="subfunction"
+              label="Open"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 19 }"
+            >
               <a-time-picker
-                placeholder="กรุณาระบุเวลา"
+                placeholder="Enter time"
                 size="large"
                 :defaultOpenValue="moment('00:00', 'HH:mm')"
                 format="HH:mm"
@@ -28,10 +33,16 @@
               />
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="ปิด" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
+          <a-col :span="2"></a-col>
+          <a-col :span="11">
+            <a-form-item
+              class="subfunction"
+              label="Close"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 19 }"
+            >
               <a-time-picker
-                placeholder="กรุณาระบุเวลา"
+                placeholder="Enter time"
                 size="large"
                 :defaultOpenValue="moment('00:00', 'HH:mm')"
                 format="HH:mm"
@@ -41,25 +52,30 @@
           </a-col>
         </a-row>
 
-        <a-row>
+        <a-row class="function-margin">
           <a-col :span="20">
-            <span>เวลาพัก</span>
+            <span class="mainfunction">Set break</span>
           </a-col>
           <a-col :span="3">
             <a-switch
               size="small"
               :style="{ marginRight: '0' }"
-              checkedChildren="เปิด"
-              unCheckedChildren="ปิด"
+              checkedChildren="ON"
+              unCheckedChildren="OFF"
               defaultChecked
             />
           </a-col>
         </a-row>
-        <a-row>
-          <a-col :span="12">
-            <a-form-item label="เปิด" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
+        <a-row class="function-margin">
+          <a-col :span="11">
+            <a-form-item
+              class="subfunction"
+              label="Open"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 19 }"
+            >
               <a-time-picker
-                placeholder="กรุณาระบุเวลา"
+                placeholder="Enter time"
                 size="large"
                 :defaultOpenValue="moment('00:00', 'HH:mm')"
                 format="HH:mm"
@@ -68,10 +84,16 @@
               />
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="ปิด" :label-col="{ span: 5 }" :wrapper-col="{ span: 19 }">
+          <a-col :span="2"></a-col>
+          <a-col :span="11">
+            <a-form-item
+              class="subfunction"
+              label="Close"
+              :label-col="{ span: 5 }"
+              :wrapper-col="{ span: 19 }"
+            >
               <a-time-picker
-                placeholder="กรุณาระบุเวลา"
+                placeholder="Enter Time"
                 size="large"
                 :defaultOpenValue="moment('00:00', 'HH:mm')"
                 format="HH:mm"
@@ -81,62 +103,73 @@
           </a-col>
         </a-row>
 
-        <a-row>
+        <a-row class="function-margin">
           <a-col>
-            <span>วันทำการ</span>
+            <span class="mainfunction">Set operating day</span>
           </a-col>
         </a-row>
-        <a-row type="flex" justify="center" :gutter="{xs: 3,sm: 16,md: 16}">
-          <a-col>
-            <div class="checkbox">
+        <a-row type="flex" justify="space-between">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_1" />
-              <label for="checkbox_1" class="text-caption">MON</label>
+              <label for="checkbox_1" class="text-caption">SUN</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_2" />
               <label for="checkbox_2" class="text-caption">MON</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_3" />
-              <label for="checkbox_3" class="text-caption">MON</label>
+              <label for="checkbox_3" class="text-caption">TUE</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_4" />
-              <label for="checkbox_4" class="text-caption">MON</label>
+              <label for="checkbox_4" class="text-caption">WED</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_5" />
-              <label for="checkbox_5" class="text-caption">MON</label>
+              <label for="checkbox_5" class="text-caption">THU</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_6" />
-              <label for="checkbox_6" class="text-caption">MON</label>
+              <label for="checkbox_6" class="text-caption">FRI</label>
             </div>
           </a-col>
-          <a-col>
-            <div class="checkbox">
+          <a-col :span="3">
+            <div class="checkbox checkdate_margin">
               <input type="checkbox" id="checkbox_7" />
-              <label for="checkbox_7" class="text-caption">MON</label>
+              <label for="checkbox_7" class="text-caption">SAT</label>
             </div>
           </a-col>
         </a-row>
       </a-form>
-    </a-card>
+    </div>
+    <a-row class="setting_button_layout">
+      <a-col :span="7">
+        <!-- <MainButton text="Back" color="purple"></MainButton> -->
+        <button class="main_button purple_button">Back</button>
+      </a-col>
+      <a-col :span="10"></a-col>
+      <a-col :span="7">
+        <button class="main_button yellow_button">Next</button>
+      </a-col>
+    </a-row>
   </div>
 </template>
 <script>
 import moment from "moment";
 import api from "@/api";
+
 export default {
   created() {
     this.getPage();
@@ -186,16 +219,20 @@ export default {
   label {
     position: relative;
     font-size: x-small;
-    // width: 100%;
+    width: 100%;
+
+    // height: 30px;
     min-width: 28px;
-    display: inline-block;
+    // display: inline-block;
+    display: block;
     cursor: pointer;
-    color: grey;
-    border: 2px solid grey;
+    color: #c4c4c4;
+    border: 1px solid #c4c4c4;
     border-radius: 50%;
     overflow: none;
     text-align: center;
-    padding: 0;
+    // margin: 10px;
+    // padding: 0.5px 0.5px 5px 5px;
 
     &::before {
       content: "";

@@ -99,13 +99,4 @@ export default {
   padding-left: 2.5%;
   padding-right: 2.5%;
 }
-.page_title {
-  color: #b2b2b2;
-  font-size: 9.6vw;
-  font-weight: 700;
-  letter-spacing: 0.075em;
-  margin-top: 2.83vh;
-  margin-bottom: 2.83vh;
-  text-align: center;
-}
 </style>

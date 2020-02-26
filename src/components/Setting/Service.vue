@@ -4,7 +4,7 @@
     <a-form>
       <a-row type="flex" align="middle">
         <a-col :span="20">
-          <div class="title">What is this booking service for?</div>
+          <div class="mainfunction">What is this booking service for?</div>
         </a-col>
         <a-col :span="3">
           <a-switch
@@ -25,7 +25,7 @@
       </a-row>
       <!-- <a-row>
         <a-col>
-          <div class="title">Service type picture</div>
+          <div class="">Service type picture</div>
         </a-col>
         <a-col>
           <div class="subtitle">Edit service picture to make you sense service type easier</div>
@@ -48,17 +48,17 @@
           </div>
         </a-upload>
       </a-row>-->
-      <a-row type="flex">
+      <a-row type="flex" justify="space-between">
         <a-col :span="16">
-          <div class="title">Enter service unit</div>
+          <div class="mainfunction">Enter service unit</div>
         </a-col>
         <a-col :span="7">
           <a-input placeholder="Unit" width="100%" v-model="service.unit_type"></a-input>
         </a-col>
       </a-row>
-      <a-row type="flex">
+      <a-row type="flex" justify="space-between">
         <a-col :span="16">
-          <div class="title">How many unit do you have?</div>
+          <div class="mainfunction">How many unit do you have?</div>
         </a-col>
         <a-col :span="7">
           <a-input-number
@@ -70,16 +70,17 @@
           />
         </a-col>
       </a-row>
-      <a-row
+      <!-- <a-row
         type="flex"
         justify="center"
         :gutter="{xs: 4,sm: 16,md: 16}"
         :style="{marginBottom: '10px'}"
-      >
+      >-->
+      <a-row type="flex" justify="space-between">
         <a-col :span="24">
-          <div class="title">Minimum booking time length</div>
+          <div class="mainfunction">Minimum booking time length</div>
         </a-col>
-        <a-col>
+        <a-col :span="5">
           <div class="radio">
             <input
               type="radio"
@@ -88,22 +89,22 @@
               value="15"
               @change.stop="choose"
             />
-            <label :for="'15min'+service._id" class="text-caption">15 min</label>
+            <label :for="'15min'+service._id">15 min</label>
           </div>
         </a-col>
-        <a-col>
+        <a-col :span="5">
           <div class="radio">
             <input type="radio" :id="'30min'+service._id" name="time" value="30" @change="choose" />
             <label :for="'30min'+service._id" class="text-caption">30 min</label>
           </div>
         </a-col>
-        <a-col>
+        <a-col :span="5">
           <div class="radio">
             <input type="radio" :id="'60min'+service._id" name="time" value="60" @change="choose" />
             <label :for="'60min'+service._id" class="text-caption">60 min</label>
           </div>
         </a-col>
-        <a-col>
+        <a-col :span="9">
           <div class="radio">
             <input
               type="radio"
@@ -112,13 +113,13 @@
               value="other"
               @change="choose"
             />
-            <label :for="'othermin'+service._id" class="text-caption">more than 60 min</label>
+            <label :for="'othermin'+service._id">more than 60 min</label>
           </div>
         </a-col>
       </a-row>
-      <a-row type="flex">
+      <a-row type="flex" justify="space-between">
         <a-col :span="16">
-          <div class="title">How many hour?</div>
+          <div class="mainfunction">How many hour?</div>
         </a-col>
         <a-col :span="7">
           <a-input-number
@@ -133,7 +134,7 @@
       </a-row>
       <!-- <a-row type="flex" align="middle">
         <a-col :span="20">
-          <div class="title">Allow user to book more than 1 slot</div>
+          <div class="">Allow user to book more than 1 slot</div>
         </a-col>
         <a-col :span="3">
           <a-switch
@@ -193,6 +194,15 @@ export default {
       imageUrl: "",
       time_length: 15,
       isOtherMin: true
+      // service: {
+      //   _id: "12312312323",
+      //   page_id: "12345",
+      //   name: "สนามแบดมินตัน",
+      //   unit_type: "คอร์ท",
+      //   minimum_time_length: 0,
+      //   start_time: "09:00:00",
+      //   end_time: "18:00:00"
+      // }
     };
   },
   methods: {
@@ -247,7 +257,6 @@ export default {
 
 <style lang="less" scope>
 @import "~ant-design-vue/lib/style/themes/default.less";
-
 .radio {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -262,15 +271,16 @@ export default {
     }
   }
   label {
-    // position: relative;
     font-size: x-small;
-    // width: 100%;
-    // min-width: 28px;
     cursor: pointer;
-    // color: @primary-color;
-    border: 2px solid grey;
-    padding: 5px;
-    border-radius: 10px;
+    color: #c4c4c4;
+    border: 1px solid #c4c4c4;
+    border-radius: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+
     text-align: center;
 
     &::before {
@@ -290,20 +300,20 @@ export default {
   justify-content: center;
 }
 
-.title {
-  font-size: larger;
-}
+// .title {
+//   font-size: larger;
+// }
 
-.subtitle {
-  font-size: x-small;
-  color: grey;
-  line-height: 80%;
-  margin-bottom: 10px;
-}
+// .subtitle {
+//   font-size: x-small;
+//   color: grey;
+//   line-height: 80%;
+//   margin-bottom: 10px;
+// }
 
 .ant-row,
 .ant-row-flex {
-  margin-bottom: 5px;
+  margin-bottom: 18px;
 }
 
 .avatar-uploader > .ant-upload {
@@ -327,6 +337,14 @@ export default {
 @media screen and (max-width: @screen-sm) {
   .ant-card {
     width: 100%;
+    //     display: block;
+    // margin-left: auto;
+    // margin-right: auto;
+    // background: white;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.07);
+    // width: 90%;
+    // padding: 2.22vh;
+    border-radius: 4px;
   }
 }
 </style>

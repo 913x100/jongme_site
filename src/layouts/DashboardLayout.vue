@@ -29,6 +29,9 @@ export default {
 <style lang="less">
 @import "~ant-design-vue/lib/style/themes/default.less";
 
+.ant-layout {
+  background-color: #fafafa;
+}
 .container {
   display: -webkit-box;
   display: -moz-box;

@@ -10,7 +10,7 @@
             <div class="service_name">Service Name</div>
           </a-col>
           <div class="username">End-user name</div>
-          <div id="badge_date">Today</div>
+          <div class="badge_date">Today</div>
           <div class="time">10.00-11.00</div>
         </a-row>
       </a-col>
@@ -34,9 +34,10 @@ export default {
 body {
   background: #fafafa;
 }
-#badge_date {
+.badge_date {
   /* margin-top: 2.03vh; */
-  /* font-size: 5.07vw; */
+  padding-top: 24px;
+  font-size: 5.07vw;
   font-weight: 500;
   color: #6c6c6c;
   text-align: right;

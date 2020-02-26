@@ -17,8 +17,10 @@ export default {
 <style>
 .status_box {
   width: 100%;
+  font-size: 11px;
   /* font-size: 2.13vw; */
   font-weight: 500;
+  /* padding: 4px; */
   color: white;
   /* letter-spacing: 0.075em; */
   text-align: center;
@@ -28,14 +30,17 @@ export default {
 }
 #absent {
   background: #c06ff2;
+  /* padding: 4px; */
   /* padding-top: 0.37vh; */
   /* padding-bottom: 0.37vh; */
-  border-radius: 2px;
+  /* border-radius: 2px; */
 }
 #approve {
   background: #62cc60;
   /* padding-top: 0.37vh; */
   /* padding-bottom: 0.37vh; */
+  padding-top: 2px;
+  padding-bottom: 2px;
   border-radius: 2px;
 }
 #confirm {
