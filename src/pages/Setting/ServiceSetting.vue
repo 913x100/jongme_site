@@ -16,12 +16,14 @@
       :loading="btnLoading"
       class="create-button"
     >ADD NEW SERVICE</a-button>
-    <a-rol>
-      <a-col :span="17"></a-col>
-      <a-col :span="7">
-        <button @click="update" class="main_button yellow_button setting_button_layout">Next</button>
+    <a-row class="pageBtn" type="flex" justify="space-around">
+      <a-col>
+        <a-button class="back" @click="next('/setting/page')">Back</a-button>
       </a-col>
-    </a-rol>
+      <a-col>
+        <a-button class="next" @click="next('/dashboard')">Next</a-button>
+      </a-col>
+    </a-row>
   </div>
 </template>
 <script>
@@ -37,7 +39,6 @@ export default {
     Service
   },
   created() {
-    // this.page = store.getter["page/page"];
     this.getPage();
     this.getService();
   },
@@ -63,18 +64,17 @@ export default {
   computed: {},
   methods: {
     getService() {
-      // const page_id = store.getters["page/page_id"];
-      this.services.push(this.service);
-      // api.service
-      //   .getServiceByPage(page_id)
-      //   .then(res => {
-      //     if (res.data != null) {
-      //       this.services = res.data;
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
+      const page_id = store.getters["page/page_id"];
+      api.service
+        .getServiceByPage(page_id)
+        .then(res => {
+          if (res.data != null) {
+            this.services = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getPage() {
       const page_id = store.getters["page/page_id"];
@@ -97,7 +97,6 @@ export default {
           this.newService.page_id = page_id;
           this.newService.start_time = this.page.start_time;
           this.newService.end_time = this.page.end_time;
-          console.log(this.newService);
           this.services.push(this.newService);
           this.btnLoading = false;
         })
@@ -106,18 +105,35 @@ export default {
           console.log(err);
         });
     },
-    async update() {
+    async next(to) {
       let services = this.services.map(async service => {
         await axios.put(`${config.apiUrl}/service/${service._id}`, service);
       });
 
-      await Promise.all(services);
+      await Promise.all(services).then(() => {
+        this.$router.push(to);
+      });
     }
   }
 };
 </script>
 
 <style lang="less">
+.pageBtn {
+  margin-top: 20px;
+
+  .back {
+    color: white;
+    border-radius: 20px;
+    background-color: #c06ff2;
+  }
+
+  .next {
+    color: white;
+    border-radius: 20px;
+    background-color: @primary-color;
+  }
+}
 .container {
   display: -webkit-box;
   display: -moz-box;
@@ -132,7 +148,7 @@ export default {
   // display: block;
   // text-decoration: none;
   border: none;
-  border-radius: 10vh;
+  border-radius: 20px;
   /* padding-top: 1.35vh;
   padding-bottom: 1.35vh;
   padding-left: 8.27vw;

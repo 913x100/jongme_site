@@ -92,19 +92,19 @@
             <label :for="'15min'+service._id">15 min</label>
           </div>
         </a-col>
-        <a-col :span="5">
+        <a-col>
           <div class="radio">
             <input type="radio" :id="'30min'+service._id" name="time" value="30" @change="choose" />
             <label :for="'30min'+service._id" class="text-caption">30 min</label>
           </div>
         </a-col>
-        <a-col :span="5">
+        <a-col>
           <div class="radio">
             <input type="radio" :id="'60min'+service._id" name="time" value="60" @change="choose" />
             <label :for="'60min'+service._id" class="text-caption">60 min</label>
           </div>
         </a-col>
-        <a-col :span="9">
+        <a-col>
           <div class="radio">
             <input
               type="radio"

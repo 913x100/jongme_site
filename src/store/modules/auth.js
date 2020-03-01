@@ -45,6 +45,10 @@ const actions = {
           reject(err);
         });
     });
+  },
+  logout({ commit }) {
+    commit("auth/logout", { root: true });
+    commit("page/logout", { root: true });
   }
 };
 
@@ -52,6 +56,10 @@ const mutations = {
   auth_success(state, token) {
     localStorage.setItem("userToken", token);
     state.token = token;
+  },
+  logout(state) {
+    localStorage.removeItem("userToken");
+    state.token = "";
   }
 };
 

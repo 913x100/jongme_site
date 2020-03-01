@@ -4,22 +4,22 @@
       <a-col :span="8">
         <div class="mini_icon">JM</div>
       </a-col>
-      <a-col :span="16" class="right">
+      <a-col :span="16" class="right" v-if="isLoggedIn">
         <a-dropdown>
           <a class="ant-dropdown-link" href="#">
-            Jongme
+            {{page_name}}
             <a-icon type="down" />
           </a>
 
           <a-menu slot="overlay">
             <a-menu-item>
-              <a href="javascript:;">Select page</a>
+              <router-link :to="{path: '/select'}" replace>Select page</router-link>
             </a-menu-item>
             <a-menu-item>
-              <a href="javascript:;">Setting</a>
+              <router-link :to="{path: '/setting/page'}" replace>Setting</router-link>
             </a-menu-item>
             <a-menu-item>
-              <a href="javascript:;">Logout</a>
+              <a href="javascript:;" @click="logout">Logout</a>
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -29,7 +29,22 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters({
+      isLoggedIn: "page/isLoggedIn",
+      page_name: "page/page_name"
+    })
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    }
+  }
+};
 </script>
 
 <style lang="less">

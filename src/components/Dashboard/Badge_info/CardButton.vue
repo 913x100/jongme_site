@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- hello -->
     <button
       class="m_button card_button_margin"
       v-bind:class="[{yellow_button:color=='yellow'},{purple_button:color=='purple'},{green_button:color=='green'},{red_button:color=='red'}]"

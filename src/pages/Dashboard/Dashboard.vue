@@ -1,82 +1,98 @@
 <template>
-  <div>
+  <a-spin :spinning="loading">
     <div class="page_title">DASHBOARD</div>
     <div class="container">
       <a-card style="width: 375px;padding:0px;" :bordered="false" class="grey-card">
-        <a-tabs defaultActiveKey="1" size="xx-small">
+        <a-row>
+          <a-button size="large" style="width: 100%" @click="showDrawer">
+            <a-icon type="plus" />
+          </a-button>
+        </a-row>
+        <a-tabs defaultActiveKey="2" @change="onTab">
           <a-tab-pane key="1">
             <span slot="tab">
               Approved
-              <a-badge count="4" />
+              <a-badge :count="t1" />
             </span>
-            <a-row>
-              <a-button size="large" style="width: 100%">
-                <a-icon type="plus" />
-              </a-button>
-            </a-row>
+
             <a-row type="flex" justify="center" align="middle">
               <a-col :span="8" style="textAlign: left;fontSize: 20px">
-                <a-icon type="left" />
+                <a-icon type="left" @click="subMonth(1)" />
               </a-col>
               <a-col :span="8" style="textAlign: center;fontSize: 20px" class="month">July 2019</a-col>
               <a-col :span="8" style="textAlign: right;fontSize: 20px">
-                <a-icon type="right" />
+                <a-icon type="right" @click="addMonth(1)" />
               </a-col>
             </a-row>
 
             <a-row>
-              <a-col>
-                <booking-card @click="showDrawer"></booking-card>
-              </a-col>
-              <a-col>
-                <booking-card></booking-card>
-              </a-col>
-              <a-col>
-                <booking-card></booking-card>
+              <a-col v-for="book in booking" :key="book.id">
+                <booking-card @click="showDrawer" :book="book"></booking-card>
               </a-col>
             </a-row>
-
-            <!-- <a-button type="primary" @click="showDrawer">Open</a-button> -->
-
-            <!-- <Badge></Badge> -->
           </a-tab-pane>
           <a-tab-pane key="2">
             <span slot="tab">
               Waiting
-              <a-badge count="5" />
+              <a-badge :count="t2" />
             </span>
-            <a-row>
-              <a-button size="large" class="add">
-                <a-icon type="plus" />
-              </a-button>
-            </a-row>
             <a-row type="flex" justify="center" align="middle">
               <a-col :span="8" style="textAlign: left;fontSize: 20px">
-                <a-icon type="left" />
+                <a-icon type="left" @click="subMonth(0)" />
               </a-col>
-              <a-col :span="8" style="textAlign: center;fontSize: 20px">Date</a-col>
+              <a-col :span="8" style="textAlign: center;fontSize: 15px">{{monthText}} {{year}}</a-col>
               <a-col :span="8" style="textAlign: right;fontSize: 20px">
-                <a-icon type="right" />
+                <a-icon type="right" @click="addMonth(0)" />
+              </a-col>
+            </a-row>
+            <a-row>
+              <a-col v-for="book in booking" :key="book.id">
+                <booking-card @click="showDrawer" :book="book"></booking-card>
               </a-col>
             </a-row>
           </a-tab-pane>
         </a-tabs>
       </a-card>
     </div>
-  </div>
+    <a-drawer placement="bottom" :closable="false" @close="onClose" :visible="visible" height="80%">
+      <time-drawer />
+    </a-drawer>
+  </a-spin>
 </template>
 
 <script>
+import api from "@/api";
+import store from "@/store";
 import BookingCard from "@/components/Dashboard/BookingCard/BookingCard";
+import TimeDrawer from "@/components/Booking/InApp";
+import moment from "moment";
 
 export default {
   data() {
     return {
-      visible: false
+      loading: false,
+      visible: false,
+      booking: [],
+      t1: 0,
+      t2: 0,
+      year: "",
+      month: "",
+      day: "",
+      now: "",
+      monthText: ""
     };
   },
   components: {
-    BookingCard
+    BookingCard,
+    TimeDrawer
+  },
+  created() {
+    this.now = moment().format("YYYY-MM-DD");
+    this.monthText = moment().format("MMMM");
+    this.formatTime();
+    console.log(this.year, this.month, this.day);
+
+    this.getBooking(this.year, this.month, 0);
   },
   methods: {
     showDrawer() {
@@ -84,6 +100,76 @@ export default {
     },
     onClose() {
       this.visible = false;
+    },
+    formatTime() {
+      let m = this.now.split("-");
+      this.year = m[0];
+      this.month = m[1];
+      this.day = m[2];
+    },
+    addMonth(status) {
+      let t = moment(this.year + "-" + this.month + "-" + this.day).add(
+        1,
+        "month"
+      );
+      this.monthText = t.format("MMMM");
+      let m = t.format("YYYY-MM-DD").split("-");
+      this.year = m[0];
+      this.month = m[1];
+      this.day = m[2];
+
+      this.getBooking(this.year, this.month, status);
+      // console.log(t);
+    },
+    subMonth(status) {
+      let t = moment(this.year + "-" + this.month + "-" + this.day).add(
+        -1,
+        "month"
+      );
+      this.monthText = t.format("MMMM");
+      let m = t.format("YYYY-MM-DD").split("-");
+      this.year = m[0];
+      this.month = m[1];
+      this.day = m[2];
+
+      this.getBooking(this.year, this.month, status);
+      // console.log(t);
+    },
+    getBooking(year, month, status) {
+      this.loading = true;
+      const page_id = store.getters["page/page_id"];
+      api.booking
+        .getBookingByStatus(page_id, year, month, status)
+        .then(res => {
+          console.log(res.data);
+          this.booking = res.data;
+          this.loading = false;
+          if (status == 0) {
+            if (res.data != null) {
+              this.t2 = res.data.length;
+            } else {
+              this.t2 = 0;
+            }
+          } else if (status == 1) {
+            if (res.data != null) {
+              this.t1 = res.data.length;
+            } else {
+              this.t1 = 0;
+            }
+          }
+        })
+        .catch(err => {
+          this.loading = false;
+          console.log(err);
+        });
+    },
+    onTab(key) {
+      this.formatTime();
+      if (key == 1) {
+        this.getBooking(this.year, this.month, 1);
+      } else if (key == 2) {
+        this.getBooking(this.year, this.month, 0);
+      }
     }
   }
 };
@@ -98,10 +184,6 @@ export default {
   font-size: 20px;
 }
 
-.a-icon {
-  // font-size: 47px;
-  // height: 47px;
-}
 .grey-card {
   background-color: #fafafa;
   .ant-card-body {
@@ -214,57 +296,4 @@ export default {
   transition: all 0.3s ease-out;
   height: 100%; */
 }
-/* .alert_bg {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
-.popup_bg {
-  background: (rgba(0, 0, 0, 0.9));
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
-.add_text {
-  font-size: 12.53vw;
-  line-height: 7.53vw;
-  color: #b2b2b2;
-}
-.add {
-  width: 100%;
-  padding-top: 2.16vw;
-  padding-bottom: 2.16vw;
-  background-color: white;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.07);
-  border-radius: 4px;
-
-  border: none;
-}
-#date {
-  color: #a7a7a7;
-  margin-bottom: 1.23vh;
-  font-size: 2.67vw;
-}
-.dash {
-  width: 100%;
-  padding-left: 2.5%;
-  padding-right: 2.5%;
-}
-.page_title {
-  color: #b2b2b2;
-  font-size: 9.6vw;
-  font-weight: 700;
-  letter-spacing: 0.075em;
-  margin-top: 2.83vh;
-  margin-bottom: 2.83vh;
-  text-align: center;
-} */
 </style>

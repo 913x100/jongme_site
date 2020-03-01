@@ -14,6 +14,7 @@
               checkedChildren="ON"
               unCheckedChildren="OFF"
               defaultChecked
+              v-model="page.is_active"
             />
           </a-col>
         </a-row>
@@ -28,9 +29,10 @@
               <a-time-picker
                 placeholder="Enter time"
                 size="large"
-                :defaultOpenValue="moment('00:00', 'HH:mm')"
+                :defaultValue="getMoment(page.start_time)"
                 format="HH:mm"
                 style="width: 100%"
+                @change="pickStartTime"
               />
             </a-form-item>
           </a-col>
@@ -45,9 +47,10 @@
               <a-time-picker
                 placeholder="Enter time"
                 size="large"
-                :defaultOpenValue="moment('00:00', 'HH:mm')"
+                :defaultValue="getMoment(page.end_time)"
                 format="HH:mm"
                 style="width: 100%"
+                @change="pickEndTime"
               />
             </a-form-item>
           </a-col>
@@ -64,6 +67,7 @@
               checkedChildren="ON"
               unCheckedChildren="OFF"
               defaultChecked
+              v-model="page.is_break"
             />
           </a-col>
         </a-row>
@@ -78,10 +82,11 @@
               <a-time-picker
                 placeholder="Enter time"
                 size="large"
-                :defaultOpenValue="moment('00:00', 'HH:mm')"
+                :defaultValue="getMoment(page.break_start)"
                 format="HH:mm"
                 style="width: 100%"
-                @change="onChange"
+                :disabled="!page.is_break"
+                @change="pickBreakStart"
               />
             </a-form-item>
           </a-col>
@@ -96,9 +101,11 @@
               <a-time-picker
                 placeholder="Enter Time"
                 size="large"
-                :defaultOpenValue="moment('00:00', 'HH:mm')"
+                :defaultValue="getMoment(page.break_end)"
                 format="HH:mm"
                 style="width: 100%"
+                :disabled="!page.is_break"
+                @change="pickBreakEnd"
               />
             </a-form-item>
           </a-col>
@@ -112,57 +119,55 @@
         <a-row type="flex" justify="space-between">
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_1" />
+              <input type="checkbox" id="checkbox_1" v-model="page.sun" />
               <label for="checkbox_1" class="text-caption">SUN</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_2" />
+              <input type="checkbox" id="checkbox_2" v-model="page.mon" />
               <label for="checkbox_2" class="text-caption">MON</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_3" />
+              <input type="checkbox" id="checkbox_3" v-model="page.tue" />
               <label for="checkbox_3" class="text-caption">TUE</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_4" />
+              <input type="checkbox" id="checkbox_4" v-model="page.wed" />
               <label for="checkbox_4" class="text-caption">WED</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_5" />
+              <input type="checkbox" id="checkbox_5" v-model="page.thu" />
               <label for="checkbox_5" class="text-caption">THU</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_6" />
+              <input type="checkbox" id="checkbox_6" v-model="page.fri" />
               <label for="checkbox_6" class="text-caption">FRI</label>
             </div>
           </a-col>
           <a-col :span="3">
             <div class="checkbox checkdate_margin">
-              <input type="checkbox" id="checkbox_7" />
+              <input type="checkbox" id="checkbox_7" v-model="page.sat" />
               <label for="checkbox_7" class="text-caption">SAT</label>
             </div>
           </a-col>
         </a-row>
       </a-form>
     </div>
-    <a-row class="setting_button_layout">
-      <a-col :span="7">
-        <!-- <MainButton text="Back" color="purple"></MainButton> -->
-        <button class="main_button purple_button">Back</button>
+    <a-row class="pageBtn" type="flex" justify="space-around">
+      <a-col>
+        <a-button class="back" @click="previous">Back</a-button>
       </a-col>
-      <a-col :span="10"></a-col>
-      <a-col :span="7">
-        <button class="main_button yellow_button">Next</button>
+      <a-col>
+        <a-button class="next" @click="next">Next</a-button>
       </a-col>
     </a-row>
   </div>
@@ -170,6 +175,11 @@
 <script>
 import moment from "moment";
 import api from "@/api";
+import store from "@/store";
+
+function changeTime(time) {
+  return time + ":00";
+}
 
 export default {
   created() {
@@ -182,14 +192,32 @@ export default {
   },
   methods: {
     moment,
-    onChange(timeString) {
-      console.log(timeString);
+    pickStartTime(time, timeString) {
+      this.page.start_time = changeTime(timeString);
+    },
+    pickEndTime(time, timeString) {
+      this.page.end_time = changeTime(timeString);
+    },
+    pickBreakStart(time, timeString) {
+      this.page.break_start = changeTime(timeString);
+    },
+    pickBreakEnd(time, timeString) {
+      this.page.break_end = changeTime(timeString);
+    },
+    getMoment(time) {
+      let r = "09:00:00";
+      if (time == "" || time == undefined) {
+        r = "09:00:00";
+      }
+      r = time.substring(0, 5);
+      return moment(r, "HH:mm");
     },
     getPage() {
+      const page_id = store.getters["page/page_id"];
       api.page
-        .getPage("110030743746925")
+        .getPage(page_id)
         .then(res => {
-          // console.log(res.data);
+          console.log(res.data);
           this.page = res.data;
 
           console.log(this.page);
@@ -198,6 +226,20 @@ export default {
           console.log(err);
           console.log("error");
         });
+    },
+    previous() {
+      const page_id = store.getters["page/page_id"];
+      api.page.updatePage(page_id, this.page).then(() => {
+        this.$router.push("/select");
+        // console.log(res);
+      });
+    },
+    next() {
+      const page_id = store.getters["page/page_id"];
+      api.page.updatePage(page_id, this.page).then(() => {
+        this.$router.push("/setting/service");
+        // console.log(res);
+      });
     }
   }
 };
@@ -206,6 +248,21 @@ export default {
 <style lang="less" scope>
 @import "~ant-design-vue/lib/style/themes/default.less";
 
+.pageBtn {
+  margin-top: 20px;
+
+  .back {
+    color: white;
+    border-radius: 20px;
+    background-color: #c06ff2;
+  }
+
+  .next {
+    color: white;
+    border-radius: 20px;
+    background-color: @primary-color;
+  }
+}
 .checkbox {
   input[type="checkbox"] {
     position: absolute;

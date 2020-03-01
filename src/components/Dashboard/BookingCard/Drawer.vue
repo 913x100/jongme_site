@@ -5,15 +5,16 @@
       <a-col :span="4">
         <img src="@/assets/test_pic.jpg" class="user_image" />
       </a-col>
-      <a-col :span="1"></a-col>
       <!-- Name -->
-      <a-col :span="19" class="enduser_name">End-user Name</a-col>
+      <a-col :span="19" :offset="1" class="enduser_name">{{book.name}}</a-col>
     </a-row>
     <!-- Date and time -->
     <div class="info_title">Date and time</div>
     <a-row class="card_date">
-      <a-col :span="16">Monday, 4 July 2019</a-col>
-      <a-col :span="8" class="card_right">9.00 - 10.00</a-col>
+      <a-col
+        :span="16"
+      >{{moment(book.year+"-"+book.month+"-"+book.day).format("dddd[,] D MMM YYYY")}}</a-col>
+      <a-col :span="8" class="card_right">{{book.time.substring(0,5)}}</a-col>
     </a-row>
     <!-- Service Type -->
     <div class="info_title">Service Type</div>
@@ -27,54 +28,92 @@
       <!-- optional -->
       <a-row class="service_type_info">
         <a-col :span="18">Phone number</a-col>
-        <a-col :span="6" class="card_right">0984561238</a-col>
+        <a-col :span="6" class="card_right">{{book.phone}}</a-col>
       </a-row>
       <div class="line"></div>
       <!-- optional -->
       <a-row class="service_type_info">
         <a-col :span="12">Name Surname</a-col>
-        <a-col :span="12" class="card_right">Chotiga Tuntragul</a-col>
+        <a-col :span="12" class="card_right">{{book.username}}</a-col>
       </a-row>
       <div class="line"></div>
 
-      <a-row>
-        <a-col :span="11">
+      <a-row type="flex" justify="space-around" class="btn">
+        <a-button v-if="book.status == 1" @click="absent" class="absent">Absent</a-button>
+        <a-button v-if="book.status == 0" @click="approve" class="approve">Approve</a-button>
+        <a-button @click="cancel" class="cancel">Cancel</a-button>
+        <!-- <a-col :span="11">
           <CardButton text="Absent" color="purple"></CardButton>
         </a-col>
         <a-col :span="2"></a-col>
         <a-col :span="11">
           <CardButton text="Cancle booking" color="red"></CardButton>
-        </a-col>
-      </a-row>
-
-      <a-row v-if="Waiting|Confirm">
-        <a-col :span="11">
-          <CardButton text="Approve" color="green"></CardButton>
-        </a-col>
-        <a-col :span="2"></a-col>
-        <a-col :span="11">
-          <CardButton text="Cancle booking" color="red"></CardButton>
-        </a-col>
+        </a-col>-->
       </a-row>
     </div>
   </div>
 </template>
 
 <script>
-import CardButton from "@/components/Dashboard/Badge_info/CardButton.vue";
+// import CardButton from "@/components/Dashboard/Badge_info/CardButton.vue";
+import moment from "moment";
+import api from "@/api";
 
 export default {
-  props: ["visible"],
+  props: ["visible", "book"],
   data() {
     return {};
   },
   components: {
-    CardButton
+    // CardButton
+  },
+  methods: {
+    moment,
+    approve() {
+      this.book.status = 1;
+      // console.log("update");
+      api.booking.updateBooking(this.book._id, this.book).then(res => {
+        console.log(res);
+        location.reload();
+      });
+    },
+    absent() {
+      this.book.status = 2;
+      // console.log("update");
+      api.booking.updateBooking(this.book._id, this.book).then(res => {
+        console.log(res);
+        location.reload();
+      });
+    },
+    cancel() {
+      api.booking.deleteBooking(this.book._id).then(res => {
+        console.log(res);
+        location.reload();
+      });
+    }
   }
 };
 </script>
 
-<style>
+<style lang="less">
+@import "~ant-design-vue/lib/style/themes/default.less";
+
+.btn {
+  .ant-btn {
+    height: 40px;
+    color: white;
+  }
+  .absent {
+    background-color: #f5575d;
+  }
+  .cancel {
+    background-color: #c06ff2;
+  }
+  .approve {
+    background-color: #62cc60;
+  }
+}
+
 .info_title {
   color: black;
   /* font-size: 4vw; */

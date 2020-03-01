@@ -8,6 +8,15 @@
           </a-steps>
           <div class="steps-content">
             <div v-if="current == 0">
+              <a-button
+                v-for="service in services"
+                :key="service._id"
+                :style="{ marginBottom: '10px' }"
+                v-on:click="setService(service)"
+                block
+              >{{ service.name }}</a-button>
+            </div>
+            <div v-if="current == 1">
               <a-row type="flex" justify="center" style="marginBottom: 20px;">
                 <a-date-picker
                   format="YYYY-MM-DD"
@@ -16,7 +25,7 @@
                 />
               </a-row>
             </div>
-            <div v-if="current == 1">
+            <div v-if="current == 2">
               <a-row style="textAlign: center; fontSize: large">Choose booking time</a-row>
               <div class="flex">
                 <div class="flex-item">
@@ -81,11 +90,8 @@
                 </div>
               </div>
             </div>
-            <div v-if="current == 2">
+            <div v-if="current == 3">
               <a-row>
-                <a-col style="marginBottom: 20px">
-                  <a-input placeholder="Enter your name" size="large" v-model="username" />
-                </a-col>
                 <a-col style="marginBottom: 20px">
                   <a-input placeholder="Enter your phone number" size="large" v-model="phone" />
                 </a-col>
@@ -94,7 +100,11 @@
           </div>
           <div class="steps-action">
             <a-row type="flex" justify="center">
-              <a-button v-if="current < steps.length - 1" type="primary" @click="next">Next</a-button>
+              <a-button
+                v-if="current < steps.length - 1 && current != 0"
+                type="primary"
+                @click="next"
+              >Next</a-button>
               <a-button v-if="current == steps.length - 1" type="primary" @click="book">Done</a-button>
               <a-button v-if="current>0" style="margin-left: 8px" @click="prev">Previous</a-button>
             </a-row>
@@ -109,6 +119,7 @@ import api from "@/api";
 import axios from "axios";
 import moment from "moment";
 import { config } from "@/config.js";
+import store from "@/store";
 
 export default {
   components: {},
@@ -116,6 +127,7 @@ export default {
     return {
       loading: false,
       visible: false,
+      services: [],
       slots: [],
       service: {},
       bookings1: [],
@@ -151,15 +163,16 @@ export default {
       page_id: "",
       service_id: "",
       user_id: "",
-      username: "",
       phone: ""
     };
   },
   computed: {},
   created() {
-    this.page_id = this.$route.params.page_id;
-    this.service_id = this.$route.params.service_id;
-    this.user_id = this.$route.params.user_id;
+    this.page_id = store.getters["page/page_id"];
+    this.getService();
+    // this.page_id = this.$route.params.page_id;
+    // this.service_id = this.$route.params.service_id;
+    // this.user_id = this.$route.params.user_id;
   },
   methods: {
     moment,
@@ -207,8 +220,8 @@ export default {
 
     getServiceSlots() {
       this.loading = true;
-      api.service.serviceSlots(this.service_id).then(res => {
-        this.slots = res.data;
+      api.service.serviceSlots(this.service._id).then(res => {
+        this.slots = res.data || [];
         this.loading = false;
       });
     },
@@ -216,7 +229,7 @@ export default {
     getBookingByService() {
       api.booking
         .getBookingByService(
-          this.service_id,
+          this.service._id,
           this.year1,
           this.month1,
           this.day1
@@ -227,7 +240,7 @@ export default {
 
       api.booking
         .getBookingByService(
-          this.service_id,
+          this.service._id,
           this.year2,
           this.month2,
           this.day2
@@ -238,7 +251,7 @@ export default {
 
       api.booking
         .getBookingByService(
-          this.service_id,
+          this.service._id,
           this.year3,
           this.month3,
           this.day3
@@ -249,15 +262,15 @@ export default {
     },
 
     getServiceByID() {
-      api.service.getServiceByID(this.service_id).then(res => {
+      api.service.getServiceByID(this.service._id).then(res => {
         this.service = res.data[0];
       });
     },
     next() {
-      if (this.current == 0) {
+      if (this.current == 1) {
         this.getServiceSlots();
-        this.getBookingByService();
-        this.getServiceByID();
+        // this.getBookingByService();
+        // this.getServiceByID();
       }
 
       this.current++;
@@ -265,7 +278,19 @@ export default {
     prev() {
       this.current--;
     },
-
+    getService() {
+      const page_id = store.getters["page/page_id"];
+      api.service
+        .getServiceByPage(page_id)
+        .then(res => {
+          if (res.data != null) {
+            this.services = res.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     serviceSlots(year, month, day, bookings) {
       let slots = this.slots.map(slot => {
         // console.log(slot);
@@ -306,14 +331,13 @@ export default {
         let book = {
           page_id: this.page_id,
           user_id: this.user_id,
-          service_id: this.service_id,
+          service_id: this.service._id,
+          name: this.service.name,
           status: 0,
           year: this.year1,
           month: this.month1,
           day: this.day1,
-          name: this.service.name,
           time: slot,
-          username: this.username,
           phone: this.phone
         };
         console.log(book);
@@ -328,35 +352,19 @@ export default {
         let book = {
           page_id: this.page_id,
           user_id: this.user_id,
-          service_id: this.service_id,
+          service_id: this.service._id,
+          name: this.service.name,
           status: 0,
           year: this.year2,
           month: this.month2,
           day: this.day2,
-          name: this.service.name,
           time: slot,
-          username: this.username,
           phone: this.phone
         };
         console.log(book);
         return await axios.post(`${config.apiUrl}/booking`, book);
       });
-      await Promise.all(booking2).then(res => {
-        console.log(res.data);
-        res.forEach(e => {
-          // console.log("rss", e.);
-          console.log(e);
-          api.booking
-            .sendSuccessMessage(this.user_id, this.page_id)
-            .then(res => {
-              console.log("ussss");
-              console.log(res);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        });
-      });
+      await Promise.all(booking2);
 
       let booking3 = this.choose_slot3.map(async slot => {
         console.log("update 3");
@@ -365,14 +373,13 @@ export default {
         let book = {
           page_id: this.page_id,
           user_id: this.user_id,
-          service_id: this.service_id,
+          service_id: this.service._id,
+          name: this.service.name,
           status: 0,
           year: this.year3,
           month: this.month3,
           day: this.day3,
-          name: this.service.name,
           time: slot,
-          username: this.username,
           phone: this.phone
         };
         console.log(book);
@@ -381,19 +388,31 @@ export default {
       await Promise.all(booking3).then(res => {
         console.log(res);
         console.log("success");
-        // window.close();
+        window.close();
       });
+    },
+    setService(service) {
+      this.service = service;
+      this.current++;
+      console.log(this.service);
     }
   }
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import "~ant-design-vue/lib/style/themes/default.less";
 
 .container {
   display: flex;
   justify-content: center;
+  // height: 100%;
+  // overflow-y: scroll;
+}
+
+.ant-drawer-content {
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .flex-item {

@@ -49,7 +49,6 @@ export default {
           page_id: "110030743746925"
         })
         .then(res => {
-          console.log(res);
           resolve(res);
         })
         .catch(err => {

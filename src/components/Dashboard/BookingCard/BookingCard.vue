@@ -10,15 +10,19 @@
         <a-col :span="15">
           <a-row class="detail_margin">
             <a-col :span="7" :push="17">
-              <StatusBadge status="Approve"></StatusBadge>
+              <div v-if="book.status == 0">
+                <StatusBadge status="Waiting" />
+              </div>
+              <div v-if="book.status == 1">
+                <StatusBadge status="Approve"></StatusBadge>
+              </div>
             </a-col>
             <a-col :span="17" :pull="7">
-              <div class="service_name">Service Name</div>
+              <div class="service_name">{{book.name}}</div>
             </a-col>
             <div class="username">End-user name</div>
-            <!-- <a-divider></a-divider> -->
-            <div class="badge_date">Today</div>
-            <div class="time">10.00-11.00</div>
+            <div class="badge_date">{{checkDate(book.year+"-"+book.month+"-"+book.day)}}</div>
+            <div class="time">{{time}}</div>
           </a-row>
         </a-col>
 
@@ -45,8 +49,14 @@
         </a-col>-->
       </a-row>
     </a-card>
-    <a-drawer placement="bottom" :closable="false" @close="onClose" :visible="visible" height="50%">
-      <Drawer />
+    <a-drawer
+      placement="bottom"
+      :closable="false"
+      @close="onClose"
+      :visible="visible"
+      height="auto"
+    >
+      <Drawer :book="book" />
     </a-drawer>
   </div>
 </template>
@@ -54,8 +64,10 @@
 <script>
 import StatusBadge from "@/components/Dashboard/Badges/StatusBadge";
 import Drawer from "@/components/Dashboard/BookingCard/Drawer";
+import moment from "moment";
 
 export default {
+  props: ["book"],
   components: {
     Drawer,
     StatusBadge
@@ -65,7 +77,57 @@ export default {
       visible: false
     };
   },
+  created() {
+    // console.log(this.year, this.month, this.day);
+  },
+  computed: {
+    getMonth() {
+      return moment(
+        this.book.year + "-" + this.book.month + "-" + this.book.day
+      ).format("MMMM");
+    },
+    time() {
+      return this.book.time.substring(0, 5);
+    }
+  },
   methods: {
+    checkDate(date) {
+      // console.log(moment().format("YYYY-MM-DD"));
+      let r = "";
+      if (
+        moment()
+          .endOf("day")
+          .format("MMM Do YY") ==
+        moment(date)
+          .endOf("day")
+          .format("MMM Do YY")
+      ) {
+        r = "Today";
+      } else if (
+        moment()
+          .add(1, "days")
+          .endOf("day")
+          .format("MMM Do YY") ==
+        moment(date)
+          .endOf("day")
+          .format("MMM Do YY")
+      ) {
+        r = "Tomorrow";
+      } else if (
+        moment()
+          .add(-1, "days")
+          .endOf("day")
+          .format("MMM Do YY") ==
+        moment(date)
+          .endOf("day")
+          .format("MMM Do YY")
+      ) {
+        r = "Yesterday";
+      } else {
+        r = date;
+      }
+      return r;
+    },
     showDrawer() {
       this.visible = true;
     },

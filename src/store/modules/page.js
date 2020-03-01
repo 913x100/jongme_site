@@ -16,10 +16,19 @@ const mutations = {
     state.page_name = page.name;
     localStorage.setItem("pageID", page.id);
     state.page_id = page.id;
+  },
+  logout(state) {
+    localStorage.removeItem("pageToken");
+    localStorage.removeItem("pageName");
+    localStorage.removeItem("pageID");
+    state.token = "";
+    state.page_name = "";
+    state.page_id = "";
   }
 };
 
 const getters = {
+  isLoggedIn: state => !!state.token,
   token: state => state.token,
   page_id: state => state.page_id,
   page_name: state => state.page_name

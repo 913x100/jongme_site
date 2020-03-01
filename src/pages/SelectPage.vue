@@ -5,7 +5,7 @@
         v-for="page in pages"
         :key="page.id"
         :style="{ marginBottom: '10px' }"
-        v-on:click="setPage(page)"
+        @click="setPage(page)"
         block
       >{{ page.name }}</a-button>
     </a-card>
@@ -33,6 +33,7 @@ export default {
       this.$store.dispatch("auth/selectPage", page).then(res => {
         // const page = store.getters["page/page"];
         // console.log(page);
+        this.$router.push("/setting/page");
         console.log(res);
       });
     }

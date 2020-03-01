@@ -14,5 +14,18 @@ export default {
           reject(err);
         });
     });
+  },
+  updatePage(id, data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`${config.apiUrl}/page/${id}`, data)
+        .then(res => {
+          console.log(res);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   }
 };

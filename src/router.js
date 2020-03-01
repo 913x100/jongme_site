@@ -9,6 +9,14 @@ import { config } from "@/config";
 
 Vue.use(Router);
 
+const ifAuthenicated = (to, from, next) => {
+  if (store.getters["page/isLoggedIn"]) {
+    next();
+    return;
+  }
+  next("/login");
+};
+
 export default new Router({
   mode: "history",
   routes: [
@@ -16,10 +24,6 @@ export default new Router({
       path: "/",
       component: DashboardLayout,
       children: [
-        {
-          path: "",
-          component: () => import("@/pages/Index")
-        },
         {
           path: "/setting/page",
           component: () => import("@/pages/Setting/PageSetting")
@@ -32,7 +36,8 @@ export default new Router({
           path: "/dashboard",
           component: () => import("@/pages/Dashboard/Dashboard")
         }
-      ]
+      ],
+      beforeEnter: ifAuthenicated
     },
     {
       path: "/login",
@@ -41,10 +46,6 @@ export default new Router({
     {
       path: "/select",
       component: () => import("@/pages/SelectPage")
-    },
-    {
-      path: "/booking/time",
-      component: () => import("@/pages/Booking/Time")
     },
     {
       path: "/booking/:page_id/:service_id/:user_id",
@@ -60,18 +61,6 @@ export default new Router({
           });
         }
       }
-    },
-    {
-      path: "/booking",
-      component: () => import("@/pages/Booking")
-    },
-    {
-      path: "/selectpage",
-      component: () => import("@/pages/PageSelection")
-    },
-    {
-      path: "/dashboard",
-      component: () => import("@/pages/Dashboard")
     }
   ]
 });
