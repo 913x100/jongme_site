@@ -118,6 +118,7 @@ export default {
       visible: false,
       slots: [],
       service: {},
+      page: {},
       bookings1: [],
       bookings2: [],
       bookings3: [],
@@ -170,14 +171,35 @@ export default {
       }
       return result;
     },
+    getPage() {
+      const page_id = this.page_id;
+      api.page
+        .getPage(page_id)
+        .then(res => {
+          // console.log(res.data);
+          this.page = res.data;
 
+          // console.log(this.page);
+        })
+        .catch(err => {
+          console.log(err);
+          console.log("error");
+        });
+    },
     disabledDate(current) {
       // Can not select days before today and today
       return (
         current <
-        moment()
-          .add(-1, "day")
-          .endOf("day")
+          moment()
+            .add(-1, "day")
+            .endOf("day") ||
+        (current.day() == 0 && this.page.sun == false) ||
+        (current.day() == 1 && this.page.mon == false) ||
+        (current.day() == 2 && this.page.tue == false) ||
+        (current.day() == 3 && this.page.wed == false) ||
+        (current.day() == 4 && this.page.thu == false) ||
+        (current.day() == 5 && this.page.fri == false) ||
+        (current.day() == 6 && this.page.sat == false)
       );
     },
 
@@ -279,7 +301,10 @@ export default {
         if (
           found != undefined ||
           moment(year + "-" + month + "-" + day).endOf("day") <
-            moment().endOf("day")
+            moment().endOf("day") ||
+          (this.page.is_break == true &&
+            slot >= this.page.break_start &&
+            slot <= this.page.break_end)
         ) {
           return {
             time: slot.slice(0, 5), //00:00

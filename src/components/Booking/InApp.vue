@@ -193,7 +193,7 @@ export default {
           // console.log(res.data);
           this.page = res.data;
 
-          console.log(this.page);
+          // console.log(this.page);
         })
         .catch(err => {
           console.log(err);
