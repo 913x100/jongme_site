@@ -21,7 +21,7 @@
         <a-button class="back" @click="next('/setting/page')">Back</a-button>
       </a-col>
       <a-col>
-        <a-button class="next" @click="next('/dashboard')">Next</a-button>
+        <a-button class="next" @click="next('/')">Next</a-button>
       </a-col>
     </a-row>
   </div>

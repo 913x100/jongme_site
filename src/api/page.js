@@ -7,7 +7,7 @@ export default {
       axios
         .get(`${config.apiUrl}/page/${id}`)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           resolve(res);
         })
         .catch(err => {
@@ -20,7 +20,7 @@ export default {
       axios
         .put(`${config.apiUrl}/page/${id}`, data)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           resolve(res);
         })
         .catch(err => {

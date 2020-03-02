@@ -33,7 +33,7 @@ export default new Router({
           component: () => import("@/pages/Setting/ServiceSetting")
         },
         {
-          path: "/dashboard",
+          path: "/",
           component: () => import("@/pages/Dashboard/Dashboard")
         }
       ],
