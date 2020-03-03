@@ -8,15 +8,19 @@
           </a-steps>
           <div class="steps-content">
             <div v-if="current == 0">
+              <div class="function_head">Which service do you want ?</div>
               <a-button
                 v-for="service in services"
                 :key="service._id"
                 :style="{ marginBottom: '10px' }"
+                style="border-radius:50vw;border: 1.5px solid #C4C4C4;
+box-sizing: border-box;box-shadow:none;font-size: 17px;color: #B3B3B3;"
                 v-on:click="setService(service)"
                 block
               >{{ service.name }}</a-button>
             </div>
             <div v-if="current == 1">
+              <div class="function_head">Pick a date</div>
               <a-row type="flex" justify="center" style="marginBottom: 20px;">
                 <a-date-picker
                   format="YYYY-MM-DD"
@@ -26,11 +30,11 @@
               </a-row>
             </div>
             <div v-if="current == 2">
-              <a-row style="textAlign: center; fontSize: large">Choose booking time</a-row>
+              <a-row class="function_head">Choose booking time</a-row>
               <div class="flex">
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year1}}-{{month1}}-{{day1}}</a-col>
+                    <a-col class="function_date">{{day1}} / {{month1}}</a-col>
                     <a-col
                       class="slot-checkbox"
                       v-for="slot in serviceSlots(year1, month1, day1,bookings1)"
@@ -50,7 +54,7 @@
                 </div>
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year2}}-{{month2}}-{{day2}}</a-col>
+                    <a-col class="function_date">{{day2}} / {{month2}}</a-col>
                     <a-col
                       class="slot-checkbox"
                       v-for="slot in serviceSlots(year2, month2, day2, bookings2)"
@@ -70,7 +74,7 @@
                 </div>
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year3}}-{{month3}}-{{day3}}</a-col>
+                    <a-col class="function_date">{{day3}} / {{month3}}</a-col>
                     <a-col
                       class="slot-checkbox"
                       v-for="slot in serviceSlots(year3, month3, day3, bookings3)"
@@ -91,7 +95,12 @@
               </div>
             </div>
             <div v-if="current == 3">
+              <div class="function_head">Enter your information</div>
+
               <a-row>
+                <a-col style="marginBottom: 20px">
+                  <a-input placeholder="Enter your name" size="large" v-model="username" />
+                </a-col>
                 <a-col style="marginBottom: 20px">
                   <a-input placeholder="Enter your phone number" size="large" v-model="phone" />
                 </a-col>
@@ -99,14 +108,28 @@
             </div>
           </div>
           <div class="steps-action">
-            <a-row type="flex" justify="center">
+            <a-row class="pageBtn" type="flex" justify="space-between">
               <a-button
+                class="back"
+                style="height: 36px;border-radius:50px;"
+                v-if="current>0"
+                @click="prev"
+              >Previous</a-button>
+
+              <a-button
+                class="next"
+                style="height: 36px;border-radius:50px;"
                 v-if="current < steps.length - 1 && current != 0"
                 type="primary"
                 @click="next"
               >Next</a-button>
-              <a-button v-if="current == steps.length - 1" type="primary" @click="book">Done</a-button>
-              <a-button v-if="current>0" style="margin-left: 8px" @click="prev">Previous</a-button>
+              <a-button
+                class="next"
+                style="height: 36px;border-radius:50px;"
+                v-if="current == steps.length - 1"
+                type="primary"
+                @click="book"
+              >Done</a-button>
             </a-row>
           </div>
         </a-card>
@@ -246,8 +269,10 @@ export default {
     },
 
     getServiceSlots() {
+      const page_id = store.getters["page/page_id"];
+
       this.loading = true;
-      api.service.serviceSlots(this.service._id).then(res => {
+      api.service.serviceSlots(this.service._id, page_id).then(res => {
         this.slots = res.data || [];
         this.loading = false;
       });
@@ -375,6 +400,7 @@ export default {
       });
       await Promise.all(booking1).then(() => {
         this.$emit("drawerVisible");
+        this.current = 0;
       });
 
       let booking2 = this.choose_slot2.map(async slot => {
@@ -399,6 +425,7 @@ export default {
       await Promise.all(booking2).then(() => {
         // console.log(res);
         // window.close()
+        this.current = 0;
         this.$emit("drawerVisible");
       });
 
@@ -423,6 +450,7 @@ export default {
       });
       await Promise.all(booking3).then(() => {
         this.$emit("drawerVisible");
+        this.current = 0;
         // window.close();
       });
     },
@@ -437,7 +465,31 @@ export default {
 
 <style lang="less">
 @import "~ant-design-vue/lib/style/themes/default.less";
+.function_date {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: 0.02em;
 
+  color: #a7a7a7;
+}
+.function_head {
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+
+  color: #6c6c6c;
+  margin-bottom: 31px;
+}
+.service_button {
+  border-radius: 50vw;
+  border: 1.5px solid #c4c4c4;
+  box-sizing: border-box;
+  box-shadow: none;
+  font-size: 17px;
+  color: #b3b3b3;
+}
 .container {
   display: flex;
   justify-content: center;

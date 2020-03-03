@@ -3,17 +3,11 @@
     <!-- {{service}} -->
     <a-form>
       <a-row type="flex" align="middle">
-        <a-col :span="20">
+        <a-col :span="22">
           <div class="mainfunction">What is this booking service for?</div>
         </a-col>
-        <a-col :span="3">
-          <a-switch
-            size="small"
-            :style="{ marginRight: '0' }"
-            checkedChildren="ON"
-            unCheckedChildren="OFF"
-            defaultChecked
-          />
+        <a-col :span="2">
+          <a-switch size="small" :style="{ marginRight: '0' }" :checked="service.is_active" />
         </a-col>
       </a-row>
       <a-row>
@@ -23,31 +17,6 @@
           </a-form-item>
         </a-col>
       </a-row>
-      <!-- <a-row>
-        <a-col>
-          <div class="">Service type picture</div>
-        </a-col>
-        <a-col>
-          <div class="subtitle">Edit service picture to make you sense service type easier</div>
-        </a-col>
-      </a-row>
-      <a-row>
-        <a-upload
-          name="avatar"
-          listType="picture-card"
-          class="avatar-uploader"
-          :showUploadList="false"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          :beforeUpload="beforeUpload"
-          @change="handleChange"
-        >
-          <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
-          <div v-else>
-            <a-icon :type="loading ? 'loading' : 'plus'" />
-            <div class="ant-upload-text">Upload</div>
-          </div>
-        </a-upload>
-      </a-row>-->
       <a-row type="flex" justify="space-between">
         <a-col :span="16">
           <div class="mainfunction">Enter service unit</div>
@@ -70,12 +39,6 @@
           />
         </a-col>
       </a-row>
-      <!-- <a-row
-        type="flex"
-        justify="center"
-        :gutter="{xs: 4,sm: 16,md: 16}"
-        :style="{marginBottom: '10px'}"
-      >-->
       <a-row type="flex" justify="space-between">
         <a-col :span="24">
           <div class="mainfunction">Minimum booking time length</div>
@@ -113,13 +76,13 @@
               value="other"
               @change="choose"
             />
-            <label :for="'othermin'+service._id">more than 60 min</label>
+            <label :for="'othermin'+service._id">Other choice</label>
           </div>
         </a-col>
       </a-row>
       <a-row type="flex" justify="space-between">
         <a-col :span="16">
-          <div class="mainfunction">How many hour?</div>
+          <div class="mainfunction">How many minute?</div>
         </a-col>
         <a-col :span="7">
           <a-input-number

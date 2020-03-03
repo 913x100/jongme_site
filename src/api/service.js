@@ -2,10 +2,10 @@ import axios from "axios";
 import { config } from "@/config.js";
 
 export default {
-  serviceSlots(id) {
+  serviceSlots(id, page_id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${config.apiUrl}/service/slots/${id}`)
+        .get(`${config.apiUrl}/service/slots/${id}/${page_id}`)
         .then(res => {
           resolve(res);
         })

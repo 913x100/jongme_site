@@ -222,7 +222,7 @@ export default {
     getMoment(time) {
       let r = "09:00:00";
       if (time == "" || time == undefined || time == null) {
-        time = "09:00:00";
+        r = "09:00:00";
       }
       r = time.substring(0, 5);
       return moment(r, "HH:mm");
@@ -263,27 +263,6 @@ export default {
 <style lang="less" scope>
 @import "~ant-design-vue/lib/style/themes/default.less";
 
-.pageBtn {
-  margin-top: 40px;
-
-  .back {
-    width: 95px;
-    height: 36px;
-    color: white;
-    background: #be78e9;
-    border-radius: 20px;
-    border: none;
-  }
-
-  .next {
-    width: 95px;
-    height: 36px;
-    color: white;
-    background: #ffc633;
-    border-radius: 20px;
-    border: none;
-  }
-}
 .checkbox {
   input[type="checkbox"] {
     position: absolute;

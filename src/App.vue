@@ -100,6 +100,28 @@ button {
   width: 100%;
 }
 
+.back {
+  margin-top: 40px;
+
+  width: 95px;
+  height: 36px;
+  color: white;
+  background: #be78e9;
+  border-radius: 20px;
+  border: none;
+}
+
+.next {
+  margin-top: 40px;
+
+  width: 95px;
+  height: 36px;
+  color: white;
+  background: #ffc633;
+  border-radius: 20px;
+  border: none;
+}
+
 .function-margin {
   margin-bottom: 1.48vh;
 }
@@ -109,6 +131,11 @@ button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
+}
+.middle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
 

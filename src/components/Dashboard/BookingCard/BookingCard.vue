@@ -20,7 +20,7 @@
             <a-col :span="17" :pull="7">
               <div class="service_name">{{book.name}}</div>
             </a-col>
-            <div class="username">End-user name</div>
+            <div class="username2">{{book.username}}</div>
             <div class="badge_date">{{checkDate(book.year+"-"+book.month+"-"+book.day)}}</div>
             <div class="time">{{time}}</div>
           </a-row>
@@ -195,7 +195,7 @@ export default {
 
 .badge_date {
   // margin-top: 2.03vh;
-  padding-top: 1.35vh;
+  padding-top: 43px;
   font-size: 19px;
   font-weight: 500;
   color: #6c6c6c;
@@ -208,11 +208,12 @@ export default {
   text-align: right;
   /* bottom: 0; */
 }
-.username {
+.username2 {
   /* margin-top: 0.53vh; */
   /* font-size: 3.2vw; */
   font-weight: 500;
   color: #a7a7a7;
+  height: 14px;
 }
 .service_name {
   /* font-size: 3.2vw; */

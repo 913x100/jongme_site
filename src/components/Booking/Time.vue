@@ -8,6 +8,8 @@
           </a-steps>
           <div class="steps-content">
             <div v-if="current == 0">
+              <div class="function_head">Pick a date</div>
+
               <a-row type="flex" justify="center" style="marginBottom: 20px;">
                 <a-date-picker
                   format="YYYY-MM-DD"
@@ -17,11 +19,11 @@
               </a-row>
             </div>
             <div v-if="current == 1">
-              <a-row style="textAlign: center; fontSize: large">Choose booking time</a-row>
+              <a-row class="function_head">Choose booking time</a-row>
               <div class="flex">
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year1}}-{{month1}}-{{day1}}</a-col>
+                    <a-col class="function_date">{{day1}} / {{month1}}</a-col>
                     <a-col
                       class="checkbox"
                       v-for="slot in serviceSlots(year1, month1, day1,bookings1)"
@@ -41,7 +43,7 @@
                 </div>
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year2}}-{{month2}}-{{day2}}</a-col>
+                    <a-col class="function_date">{{day2}} / {{month2}}</a-col>
                     <a-col
                       class="checkbox"
                       v-for="slot in serviceSlots(year2, month2, day2, bookings2)"
@@ -61,7 +63,7 @@
                 </div>
                 <div class="flex-item">
                   <a-row>
-                    <a-col>{{year3}}-{{month3}}-{{day3}}</a-col>
+                    <a-col class="function_date">{{day3}} / {{month3}}</a-col>
                     <a-col
                       class="checkbox"
                       v-for="slot in serviceSlots(year3, month3, day3, bookings3)"
@@ -82,6 +84,7 @@
               </div>
             </div>
             <div v-if="current == 2">
+              <div class="function_head">Enter your information</div>
               <a-row>
                 <a-col style="marginBottom: 20px">
                   <a-input placeholder="Enter your name" size="large" v-model="username" />
@@ -93,10 +96,16 @@
             </div>
           </div>
           <div class="steps-action">
-            <a-row type="flex" justify="center">
-              <a-button v-if="current < steps.length - 1" type="primary" @click="next">Next</a-button>
-              <a-button v-if="current == steps.length - 1" type="primary" @click="book">Done</a-button>
-              <a-button v-if="current>0" style="margin-left: 8px" @click="prev">Previous</a-button>
+            <a-row type="flex" justify="space-around">
+              <a-col v-if="current>0">
+                <a-button class="back" @click="prev">Previous</a-button>
+              </a-col>
+              <a-col v-if="current < steps.length - 1">
+                <a-button class="next" type="primary" @click="next">Next</a-button>
+              </a-col>
+              <a-col v-if="current == steps.length - 1">
+                <a-button class="next" type="primary" @click="book">Done</a-button>
+              </a-col>
             </a-row>
           </div>
         </a-card>
@@ -229,8 +238,8 @@ export default {
 
     getServiceSlots() {
       this.loading = true;
-      api.service.serviceSlots(this.service_id).then(res => {
-        this.slots = res.data;
+      api.service.serviceSlots(this.service_id, this.page_id).then(res => {
+        this.slots = res.data || [];
         this.loading = false;
       });
     },
@@ -415,7 +424,31 @@ export default {
 
 <style lang="less" scoped>
 @import "~ant-design-vue/lib/style/themes/default.less";
+.function_date {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: 0.02em;
 
+  color: #a7a7a7;
+}
+.function_head {
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+
+  color: #6c6c6c;
+  margin-bottom: 31px;
+}
+.service_button {
+  border-radius: 50vw;
+  border: 1.5px solid #c4c4c4;
+  box-sizing: border-box;
+  box-shadow: none;
+  font-size: 17px;
+  color: #b3b3b3;
+}
 .container {
   display: flex;
   justify-content: center;

@@ -8,7 +8,7 @@
             <a-icon type="plus" />
           </a-button>
         </a-row>
-        <a-tabs defaultActiveKey="2" @change="onTab">
+        <a-tabs defaultActiveKey="1" @change="onTab">
           <a-tab-pane key="1">
             <span slot="tab">
               Approved
@@ -19,7 +19,11 @@
               <a-col :span="8" style="textAlign: left;fontSize: 20px">
                 <a-icon type="left" @click="subMonth(1)" />
               </a-col>
-              <a-col :span="8" style="textAlign: center;fontSize: 20px" class="month">July 2019</a-col>
+              <a-col
+                :span="8"
+                style="textAlign: center;fontSize: 20px"
+                class="month"
+              >{{monthText}} {{year}}</a-col>
               <a-col :span="8" style="textAlign: right;fontSize: 20px">
                 <a-icon type="right" @click="addMonth(1)" />
               </a-col>
