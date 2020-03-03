@@ -1,6 +1,7 @@
 const config = {
   appUrl: "https://localhost:41134",
-  apiUrl: "http://localhost:8083/api",
+  // apiUrl: "http://localhost:8083/api",
+  apiUrl: "https://cb1adf7e.ngrok.io/api",
   fb: {
     appId: "2203330309960432",
     redirectUri:

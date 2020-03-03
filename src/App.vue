@@ -11,10 +11,11 @@ export default {
 };
 </script>
 <style >
+@import url("https://fonts.googleapis.com/css?family=Kanit:300,400,500,600,700,800,900|Roboto:300,400,500,700,900&display=swap&subset=thai");
 .page_title {
   color: #b2b2b2;
   /* font-size: 9.6vw; */
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: 0.075em;
   /* margin-top: 2.83vh; */
@@ -23,13 +24,18 @@ export default {
 }
 
 body {
+  max-width: 375px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #fafafa;
+  font-family: "Roboto", "Kanit", sans-serif;
 }
 button {
   outline: none;
 }
 .mainfunction {
-  font-size: 1.71vh;
+  font-size: 14px;
   color: #6c6c6c;
   font-weight: 500;
 
@@ -78,17 +84,20 @@ button {
   color: white;
   /* width: 23.73vw; */
 }
-
-/* setting */
-.box {
+.inner_layout {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 90%;
+}
+/* setting */
+.box {
   background: white;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.07);
-  width: 90%;
+  /* width: 90%; */
   padding: 2.22vh;
   border-radius: 4px;
+  width: 100%;
 }
 
 .function-margin {
