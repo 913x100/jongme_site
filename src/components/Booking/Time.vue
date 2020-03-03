@@ -369,12 +369,12 @@ export default {
       await Promise.all(booking2).then(res => {
         console.log(res.data);
         res.forEach(e => {
-          // console.log("rss", e.);
-          console.log(e);
+          // console.log("rss", e.data);
+          // console.log(e);
           api.booking
-            .sendSuccessMessage(this.user_id, this.page_id)
+            .sendSuccessMessage(e.data)
             .then(res => {
-              console.log("ussss");
+              // console.log("ussss");
               console.log(res);
             })
             .catch(err => {

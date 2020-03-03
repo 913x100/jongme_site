@@ -30,10 +30,10 @@ export default {
         });
     });
   },
-  sendSuccessMessage(user_id, page_id) {
+  sendSuccessMessage(booking) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${config.apiUrl}/fb/?user_id=${user_id}&page_id=${page_id}`)
+        .post(`${config.apiUrl}/fb/success`, booking)
         .then(res => {
           resolve(res);
         })
