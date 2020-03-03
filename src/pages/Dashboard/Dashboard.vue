@@ -55,7 +55,7 @@
       </a-card>
     </div>
     <a-drawer placement="bottom" :closable="false" @close="onClose" :visible="visible" height="80%">
-      <time-drawer />
+      <time-drawer @drawerVisible="onClose" />
     </a-drawer>
   </a-spin>
 </template>

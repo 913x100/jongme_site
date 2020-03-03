@@ -2,7 +2,9 @@
   <div class="header">
     <a-row style="margin: 0">
       <a-col :span="8">
-        <div class="mini_icon">JM</div>
+        <div class="mini_icon">
+          <router-link :to="{path: '/'}" replace>JM</router-link>
+        </div>
       </a-col>
       <a-col :span="16" class="right" v-if="isLoggedIn">
         <a-dropdown>

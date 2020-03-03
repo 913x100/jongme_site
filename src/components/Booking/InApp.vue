@@ -147,6 +147,10 @@ export default {
         {
           title: "",
           content: "Last-content"
+        },
+        {
+          title: "",
+          content: "aa"
         }
       ],
       choose_slot1: [],
@@ -369,7 +373,9 @@ export default {
         console.log(book);
         return await axios.post(`${config.apiUrl}/booking`, book);
       });
-      await Promise.all(booking1);
+      await Promise.all(booking1).then(() => {
+        this.$emit("drawerVisible");
+      });
 
       let booking2 = this.choose_slot2.map(async slot => {
         console.log("update 2");
@@ -390,7 +396,11 @@ export default {
         console.log(book);
         return await axios.post(`${config.apiUrl}/booking`, book);
       });
-      await Promise.all(booking2);
+      await Promise.all(booking2).then(() => {
+        // console.log(res);
+        // window.close()
+        this.$emit("drawerVisible");
+      });
 
       let booking3 = this.choose_slot3.map(async slot => {
         console.log("update 3");
@@ -411,10 +421,9 @@ export default {
         console.log(book);
         return await axios.post(`${config.apiUrl}/booking`, book);
       });
-      await Promise.all(booking3).then(res => {
-        console.log(res);
-        console.log("success");
-        window.close();
+      await Promise.all(booking3).then(() => {
+        this.$emit("drawerVisible");
+        // window.close();
       });
     },
     setService(service) {
