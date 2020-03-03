@@ -9,13 +9,13 @@ import { config } from "@/config";
 
 Vue.use(Router);
 
-const ifAuthenicated = (to, from, next) => {
-  if (store.getters["page/isLoggedIn"]) {
-    next();
-    return;
-  }
-  next("/login");
-};
+// const ifAuthenicated = (to, from, next) => {
+//   if (store.getters["page/isLoggedIn"]) {
+//     next();
+//     return;
+//   }
+//   next("/login");
+// };
 
 export default new Router({
   mode: "history",
@@ -36,8 +36,8 @@ export default new Router({
           path: "/",
           component: () => import("@/pages/Dashboard/Dashboard")
         }
-      ],
-      beforeEnter: ifAuthenicated
+      ]
+      // beforeEnter: ifAuthenicated
     },
     {
       path: "/login",
