@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import firebase from "firebase";
 
 import {
   Button,
@@ -114,6 +115,18 @@ Vue.component(Content.name, Content);
 Vue.component(Header.name, Header);
 Vue.component(Footer.name, Footer);
 Vue.component(Sider.name, Sider);
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDnlW7xLU04euB6tihQurR6mmmDhzuXlKU",
+  authDomain: "jonme-image.firebaseapp.com",
+  databaseURL: "https://jonme-image.firebaseio.com",
+  projectId: "jonme-image",
+  storageBucket: "jonme-image.appspot.com",
+  messagingSenderId: "1000896382744",
+  appId: "1:1000896382744:web:6ad31eaac96754131f006d"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 new Vue({
   router,

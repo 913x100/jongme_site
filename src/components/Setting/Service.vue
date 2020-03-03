@@ -1,13 +1,16 @@
 <template>
   <div>
-    <!-- {{service}} -->
     <a-form>
       <a-row type="flex" align="middle">
         <a-col :span="22">
           <div class="mainfunction">What is this booking service for?</div>
         </a-col>
         <a-col :span="2">
-          <a-switch size="small" :style="{ marginRight: '0' }" :checked="service.is_active" />
+          <a-switch
+            size="small"
+            :style="{ marginRight: '0' }"
+            :checked="service.is_active"
+          />
         </a-col>
       </a-row>
       <a-row>
@@ -22,7 +25,11 @@
           <div class="mainfunction">Enter service unit</div>
         </a-col>
         <a-col :span="7">
-          <a-input placeholder="Unit" width="100%" v-model="service.unit_type"></a-input>
+          <a-input
+            placeholder="Unit"
+            width="100%"
+            v-model="service.unit_type"
+          ></a-input>
         </a-col>
       </a-row>
       <a-row type="flex" justify="space-between">
@@ -47,36 +54,52 @@
           <div class="radio">
             <input
               type="radio"
-              :id="'15min'+service._id"
+              :id="'15min' + service._id"
               name="time"
               value="15"
               @change.stop="choose"
             />
-            <label :for="'15min'+service._id">15 min</label>
-          </div>
-        </a-col>
-        <a-col>
-          <div class="radio">
-            <input type="radio" :id="'30min'+service._id" name="time" value="30" @change="choose" />
-            <label :for="'30min'+service._id" class="text-caption">30 min</label>
-          </div>
-        </a-col>
-        <a-col>
-          <div class="radio">
-            <input type="radio" :id="'60min'+service._id" name="time" value="60" @change="choose" />
-            <label :for="'60min'+service._id" class="text-caption">60 min</label>
+            <label :for="'15min' + service._id">15 min</label>
           </div>
         </a-col>
         <a-col>
           <div class="radio">
             <input
               type="radio"
-              :id="'othermin'+service._id"
+              :id="'30min' + service._id"
+              name="time"
+              value="30"
+              @change="choose"
+            />
+            <label :for="'30min' + service._id" class="text-caption"
+              >30 min</label
+            >
+          </div>
+        </a-col>
+        <a-col>
+          <div class="radio">
+            <input
+              type="radio"
+              :id="'60min' + service._id"
+              name="time"
+              value="60"
+              @change="choose"
+            />
+            <label :for="'60min' + service._id" class="text-caption"
+              >60 min</label
+            >
+          </div>
+        </a-col>
+        <a-col>
+          <div class="radio">
+            <input
+              type="radio"
+              :id="'othermin' + service._id"
               name="time"
               value="other"
               @change="choose"
             />
-            <label :for="'othermin'+service._id">Other choice</label>
+            <label :for="'othermin' + service._id">Other choice</label>
           </div>
         </a-col>
       </a-row>
@@ -139,12 +162,7 @@
 <script>
 import moment from "moment";
 import api from "@/api";
-
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+import firebase from "firebase";
 
 export default {
   props: ["service"],
@@ -156,7 +174,10 @@ export default {
       loading: false,
       imageUrl: "",
       time_length: 15,
-      isOtherMin: true
+      isOtherMin: true,
+      imageData: null,
+      picture: null,
+      uploadValue: 0
       // service: {
       //   _id: "12312312323",
       //   page_id: "12345",
@@ -170,30 +191,6 @@ export default {
   },
   methods: {
     moment,
-    handleChange(info) {
-      if (info.file.status === "uploading") {
-        this.loading = true;
-        return;
-      }
-      if (info.file.status === "done") {
-        // Get this url from response in real world.
-        getBase64(info.file.originFileObj, imageUrl => {
-          this.imageUrl = imageUrl;
-          this.loading = false;
-        });
-      }
-    },
-    beforeUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      if (!isJPG) {
-        this.$message.error("You can only upload JPG file!");
-      }
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.$message.error("Image must smaller than 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
     choose(e) {
       console.log(e.target.value);
       if (e.target.value == "other") {
@@ -202,6 +199,35 @@ export default {
         this.isOtherMin = true;
         this.service.minimum_time_length = parseInt(e.target.value);
       }
+    },
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.picture = null;
+      this.imageData = event.target.files[0];
+    },
+    onUpload() {
+      this.picture = null;
+      const storageRef = firebase
+        .storage()
+        .ref(`${this.imageData.name}`)
+        .put(this.imageData);
+      storageRef.on(
+        `state_changed`,
+        snapshot => {
+          this.uploadValue =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        error => {
+          console.log(error.message);
+        },
+        () => {
+          this.uploadValue = 100;
+          storageRef.snapshot.ref.getDownloadURL().then(url => {
+            this.picture = url;
+            this.service.image_url = url;
+          });
+        }
+      );
     },
     getService() {
       api.service
